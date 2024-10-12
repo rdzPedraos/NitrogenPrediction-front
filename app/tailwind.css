@@ -6,3 +6,11 @@ html,
 body {
     @apply bg-white dark:bg-gray-950;
 }
+
+.bg-gradient-primary {
+    @apply font-bold text-white bg-gradient-to-tr from-pink-500 to-yellow-500;
+}
+
+.text-gradient-primary {
+    @apply font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-yellow-500;
+}
