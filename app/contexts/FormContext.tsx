@@ -20,7 +20,7 @@ export default function FormProvider({
 }: {
     children: React.ReactNode;
 }) {
-    const { register } = useForm({
+    const { allFilled, register } = useForm({
         clorofila: "",
         startDate: "",
         captureDate: "",
@@ -30,8 +30,11 @@ export default function FormProvider({
     const refractance = useBandImages();
 
     const alreadyUploadImages = useMemo(
-        () => multispectral.uploadedImages() && refractance.uploadedImages(),
-        [multispectral, refractance]
+        () =>
+            multispectral.uploadedImages() &&
+            refractance.uploadedImages() &&
+            allFilled,
+        [multispectral, refractance, allFilled]
     );
 
     return (

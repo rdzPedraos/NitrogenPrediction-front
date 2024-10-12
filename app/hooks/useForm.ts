@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 function useForm<T extends object>(initValues: T) {
     const [form, setForm] = useState<T>(initValues);
@@ -14,10 +14,15 @@ function useForm<T extends object>(initValues: T) {
         };
     };
 
+    const allFilled = useMemo(() => {
+        return Object.values(form).every((v) => v);
+    }, [form]);
+
     return {
         data: form,
         setData,
         register,
+        allFilled,
     };
 }
 
