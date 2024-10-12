@@ -1,12 +1,21 @@
 import { useState } from "react";
+import { use_mockup } from "@/env";
 
-const BandTypes = ["BANDA 1", "BANDA 2", "BANDA 3", "BANDA 4", "BANDA 5"];
+const BandTypes = [
+    "Blue band",
+    "Green Band",
+    "Red Band",
+    "NIR Band",
+    "Red edge Band",
+];
 
 function initializeImages(): Image[] {
-    return Array.from({ length: BandTypes.length }, () => ({
-        id: Math.random().toString(36).substring(7),
-        src: "/img/logo.png",
-    }));
+    return Array.from({ length: BandTypes.length }, (_, i) => {
+        const id = Math.random().toString(36).substring(7);
+        const src = use_mockup ? `/mockup/bands/${i + 1}.png` : null;
+
+        return { id, src };
+    });
 }
 
 type UploadImagesReturn = {
