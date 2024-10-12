@@ -45,6 +45,7 @@ export default function FormView() {
 
                 <div className="flex flex-wrap justify-end gap-2">
                     <UploadFileButton
+                        isDisabled={images.multispectral.uploadedImages()}
                         onUpload={images.multispectral.upload}
                         color="primary"
                         endContent={<Upload width={20} />}
@@ -53,6 +54,7 @@ export default function FormView() {
                     </UploadFileButton>
 
                     <UploadFileButton
+                        isDisabled={images.multispectral.uploadedImages()}
                         onUpload={images.refractance.upload}
                         color="primary"
                         variant="flat"
