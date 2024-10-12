@@ -1,5 +1,7 @@
 import { createContext, useContext, useMemo } from "react";
+import { CalendarDate } from "@internationalized/date";
 
+import { use_mockup } from "@/env";
 import useForm from "@/hooks/useForm";
 import useBandImages, { BandTypes } from "@/hooks/useBandImages";
 
@@ -15,16 +17,30 @@ type FormContextType = {
 
 const FormContext = createContext({} as FormContextType);
 
+function defaultValues() {
+    const now = new Date();
+
+    return {
+        clorofila: use_mockup ? 1 : null,
+        startDate: new CalendarDate(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate()
+        ),
+        captureDate: new CalendarDate(
+            now.getFullYear(),
+            now.getMonth() + 1,
+            now.getDate()
+        ),
+    };
+}
+
 export default function FormProvider({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const { allFilled, register } = useForm({
-        clorofila: "",
-        startDate: "",
-        captureDate: "",
-    });
+    const { allFilled, register } = useForm(defaultValues());
 
     const multispectral = useBandImages();
     const refractance = useBandImages();
