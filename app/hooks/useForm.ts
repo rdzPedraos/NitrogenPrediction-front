@@ -7,10 +7,21 @@ function useForm<T extends object>(initValues: T) {
         setForm((prev) => ({ ...prev, [key]: value }));
     };
 
-    const register = (key: keyof T) => {
+    const register = (key: keyof T, type?: "date") => {
+        if (type === "date") return registerDate(key);
+
         return {
-            value: form[key],
+            defaultValue: form[key],
             onValueChange: (value: any) => setData(key, value),
+        };
+    };
+
+    const registerDate = (key: keyof T) => {
+        return {
+            defaultValue: form[key],
+            onChange: (value: T[keyof T]) => {
+                setData(key, value);
+            },
         };
     };
 

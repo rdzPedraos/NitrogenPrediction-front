@@ -1,4 +1,4 @@
-import { Input } from "@nextui-org/react";
+import { DatePicker, Input } from "@nextui-org/react";
 import { Reorder } from "framer-motion";
 import { Upload } from "lucide-react";
 
@@ -27,25 +27,27 @@ export default function FormView() {
             <div className="flex flex-col gap-6">
                 <div className="flex flex-col md:flex-row gap-5">
                     <Input
+                        isRequired
                         label="Niveles de clorofila"
                         {...register("clorofila")}
                         type="number"
                     />
-                    <Input
+
+                    <DatePicker
+                        isRequired
                         label="Fecha inicial del cultivo"
-                        {...register("startDate")}
-                        type="date"
+                        {...register("startDate", "date")}
                     />
-                    <Input
+                    <DatePicker
+                        isRequired
                         label="Fecha de la toma de muestras (fotos)"
-                        {...register("captureDate")}
-                        type="date"
+                        {...register("captureDate", "date")}
                     />
                 </div>
 
                 <div className="flex flex-wrap justify-end gap-2">
                     <UploadFileButton
-                        isDisabled={images.multispectral.uploadedImages()}
+                        isDisabled={images.multispectral.uploadedImages}
                         onUpload={images.multispectral.upload}
                         color="primary"
                         endContent={<Upload width={20} />}
@@ -54,7 +56,7 @@ export default function FormView() {
                     </UploadFileButton>
 
                     <UploadFileButton
-                        isDisabled={images.multispectral.uploadedImages()}
+                        isDisabled={images.refractance.uploadedImages}
                         onUpload={images.refractance.upload}
                         color="primary"
                         variant="flat"
