@@ -31,8 +31,8 @@ export default function FormProvider({
 
     const alreadyUploadImages = useMemo(
         () =>
-            multispectral.uploadedImages() &&
-            refractance.uploadedImages() &&
+            multispectral.uploadedImages &&
+            refractance.uploadedImages &&
             allFilled,
         [multispectral, refractance, allFilled]
     );

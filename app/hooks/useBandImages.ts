@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { use_mockup } from "@/env";
 
 const BandTypes = [
@@ -23,7 +23,7 @@ type UploadImagesReturn = {
     setImages: (images: Image[]) => void;
     upload: (files: FileList) => void;
     removeImage: (id: string) => void;
-    uploadedImages: () => boolean;
+    uploadedImages: boolean;
 };
 
 function useBandImages(): UploadImagesReturn {
@@ -52,9 +52,9 @@ function useBandImages(): UploadImagesReturn {
         setImages(newArray);
     };
 
-    const uploadedImages = () => {
+    const uploadedImages = useMemo(() => {
         return images.every((i) => i.src);
-    };
+    }, [images]);
 
     return {
         images,
