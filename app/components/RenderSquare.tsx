@@ -1,4 +1,4 @@
-import { Button, Image } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { XIcon } from "lucide-react";
 
 type Props = {
