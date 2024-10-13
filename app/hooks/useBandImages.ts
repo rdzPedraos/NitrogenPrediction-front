@@ -1,22 +1,8 @@
 import { useMemo, useState } from "react";
 import { use_mockup } from "@/env";
 
-const BandTypes = [
-    "Blue band",
-    "Green Band",
-    "Red Band",
-    "NIR Band",
-    "Red edge Band",
-];
-
-function initializeImages(): Image[] {
-    return Array.from({ length: BandTypes.length }, (_, i) => {
-        const id = Math.random().toString(36).substring(7);
-        const src = use_mockup ? `/mockup/bands/${i + 1}.png` : null;
-
-        return { id, src };
-    });
-}
+import { Image } from "@/types/models";
+import { ImageMockup, BandTypes } from "@/helpers/mockups";
 
 type UploadImagesReturn = {
     images: Image[];
@@ -27,7 +13,7 @@ type UploadImagesReturn = {
 };
 
 function useBandImages(): UploadImagesReturn {
-    const [images, setImages] = useState(initializeImages());
+    const [images, setImages] = useState(ImageMockup(use_mockup));
 
     const upload = (files: FileList) => {
         const f = Array.from(files);

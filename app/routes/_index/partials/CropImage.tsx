@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button } from "@nextui-org/react";
 import { SparklesIcon } from "lucide-react";
 import { ReactCrop, Crop } from "react-image-crop";
+import { Button } from "@nextui-org/react";
 
 import { useFormContext } from "@/contexts/FormContext";
 

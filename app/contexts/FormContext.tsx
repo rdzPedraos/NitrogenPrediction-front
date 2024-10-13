@@ -1,15 +1,17 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import { CalendarDate } from "@internationalized/date";
+import { FilterImage } from "@/types/models";
 
-import { use_mockup } from "@/env";
 import useForm from "@/hooks/useForm";
 import useBandImages, { BandTypes } from "@/hooks/useBandImages";
+
+import { FormMockup } from "@/helpers/mockups";
+import { processImages } from "@/helpers/requests";
 
 type FormContextType = {
     BandTypes: typeof BandTypes;
     register: ReturnType<typeof useForm>["register"];
     alreadyUploadImages: boolean;
-    processImages: () => Promise<void>;
+    process: () => Promise<void>;
     filterImages: FilterImage[];
     images: {
         multispectral: ReturnType<typeof useBandImages>;
@@ -19,58 +21,13 @@ type FormContextType = {
 
 const FormContext = createContext({} as FormContextType);
 
-function defaultValues() {
-    const now = new Date();
-
-    return {
-        clorofila: use_mockup ? 1 : null,
-        startDate: new CalendarDate(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate()
-        ),
-        captureDate: new CalendarDate(
-            now.getFullYear(),
-            now.getMonth() + 1,
-            now.getDate()
-        ),
-    };
-}
-
-async function _processImages(): Promise<FilterImage[]> {
-    if (use_mockup) {
-        return [
-            {
-                key: "default",
-                label: "Imagen original",
-                preview: "/mockup/preview/normal.png",
-            },
-            {
-                key: "GNDVI",
-                label: "Green Normalized Difference Vegetation Index",
-                histogram: "/mockup/histograms/GNDVI.png",
-                preview: "/mockup/preview/GNDVI.png",
-            },
-            {
-                key: "NDVI",
-                label: "Normalized difference vegetation index",
-                histogram: "/mockup/histograms/NDVI.png",
-                preview: "/mockup/preview/NDVI.png",
-            },
-        ];
-    }
-
-    return [];
-}
-
 export default function FormProvider({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const { allFilled, register } = useForm(defaultValues());
+    const { allFilled, register } = useForm(FormMockup());
     const [filterImages, setFilterImages] = useState<FilterImage[]>([]);
-
     const multispectral = useBandImages();
     const refractance = useBandImages();
 
@@ -82,8 +39,8 @@ export default function FormProvider({
         [multispectral, refractance, allFilled]
     );
 
-    const processImages = async () => {
-        const images = await _processImages();
+    const process = async () => {
+        const images = await processImages();
         setFilterImages(images);
     };
 
@@ -94,7 +51,7 @@ export default function FormProvider({
                 register,
                 alreadyUploadImages,
                 images: { multispectral, refractance },
-                processImages,
+                process,
                 filterImages,
             }}
         >

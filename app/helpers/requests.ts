@@ -1,4 +1,7 @@
 import api from "./api";
+import { use_mockup } from "@/env";
+import { FilterImage } from "@/types/models";
+import { FilterImageMockup } from "@/helpers/mockups";
 
 function getToken() {
     const token = localStorage.getItem("token");
@@ -13,24 +16,12 @@ function getToken() {
     });
 }
 
-type uploadImagesProps = {
-    multiespectral: {
-        content: string;
-        bandType: string;
-    }[];
+async function processImages(): Promise<FilterImage[]> {
+    if (use_mockup) {
+        return FilterImageMockup();
+    }
 
-    refractancia: {
-        content: string;
-        bandType: string;
-    }[];
-};
-
-function uploadImages(images: uploadImagesProps): Promise<string[]> {
-    return getToken().then((token) => {
-        return api
-            .post("/process-images", { token, images })
-            .then((response) => response.data);
-    });
+    return [];
 }
 
-export { getToken, uploadImages };
+export { getToken, processImages };

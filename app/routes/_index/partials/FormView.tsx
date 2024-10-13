@@ -4,14 +4,15 @@ import { ArrowRightIcon, Upload } from "lucide-react";
 
 import { useFormContext } from "@/contexts/FormContext";
 import { useStepperContext } from "@/contexts/StepperContext";
+
 import { RenderSquare, UploadFileButton, Title } from "@/components";
 
 export default function FormView() {
     const { next } = useStepperContext();
-    const { images, BandTypes, register, alreadyUploadImages, processImages } =
+    const { images, BandTypes, register, alreadyUploadImages, process } =
         useFormContext();
 
-    const onSubmit = () => processImages().then(next);
+    const onSubmit = () => process().then(next);
 
     return (
         <>

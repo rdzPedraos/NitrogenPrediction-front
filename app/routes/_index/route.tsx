@@ -1,5 +1,5 @@
-import { Progress } from "@nextui-org/react";
 import type { MetaFunction } from "@remix-run/node";
+import { Progress } from "@nextui-org/react";
 
 import FormProvider from "@/contexts/FormContext";
 import StepperProvider, { useStepperContext } from "@/contexts/StepperContext";
