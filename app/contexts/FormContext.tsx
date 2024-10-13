@@ -1,11 +1,11 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import { FilterImage } from "@/types/models";
+import { FilterImage, NitrogenPredict } from "@/types/models";
 
 import useForm from "@/hooks/useForm";
 import useBandImages, { BandTypes } from "@/hooks/useBandImages";
 
 import { FormMockup } from "@/helpers/mockups";
-import { processImages } from "@/helpers/requests";
+import { nitrogenPredict, processImages } from "@/helpers/requests";
 
 type FormContextType = {
     BandTypes: typeof BandTypes;
@@ -17,6 +17,8 @@ type FormContextType = {
         multispectral: ReturnType<typeof useBandImages>;
         refractance: ReturnType<typeof useBandImages>;
     };
+    predict: () => Promise<void>;
+    prediction?: NitrogenPredict;
 };
 
 const FormContext = createContext({} as FormContextType);
@@ -28,6 +30,7 @@ export default function FormProvider({
 }) {
     const { allFilled, register } = useForm(FormMockup());
     const [filterImages, setFilterImages] = useState<FilterImage[]>([]);
+    const [prediction, setPrediction] = useState<NitrogenPredict>();
     const multispectral = useBandImages();
     const refractance = useBandImages();
 
@@ -44,6 +47,11 @@ export default function FormProvider({
         setFilterImages(images);
     };
 
+    const predict = async () => {
+        const result = await nitrogenPredict();
+        setPrediction(result);
+    };
+
     return (
         <FormContext.Provider
             value={{
@@ -53,6 +61,8 @@ export default function FormProvider({
                 images: { multispectral, refractance },
                 process,
                 filterImages,
+                predict,
+                prediction,
             }}
         >
             {children}

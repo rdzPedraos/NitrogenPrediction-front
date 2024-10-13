@@ -1,6 +1,6 @@
 import api from "./api";
 import { use_mockup } from "@/env";
-import { FilterImage } from "@/types/models";
+import { FilterImage, NitrogenPredict } from "@/types/models";
 import { FilterImageMockup } from "@/helpers/mockups";
 
 function getToken() {
@@ -24,4 +24,12 @@ async function processImages(): Promise<FilterImage[]> {
     return [];
 }
 
-export { getToken, processImages };
+async function nitrogenPredict(): Promise<NitrogenPredict> {
+    if (use_mockup) {
+        return { nitrogen: 0 };
+    }
+
+    return { nitrogen: 0 };
+}
+
+export { getToken, processImages, nitrogenPredict };

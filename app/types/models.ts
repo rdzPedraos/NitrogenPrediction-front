@@ -19,4 +19,8 @@ type BasicForm = {
     captureDate: CalendarDate;
 };
 
-export type { Image, FilterImage, BasicForm };
+type NitrogenPredict = {
+    nitrogen: number;
+};
+
+export type { Image, FilterImage, BasicForm, NitrogenPredict };

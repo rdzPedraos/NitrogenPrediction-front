@@ -10,12 +10,13 @@ type Props = {
 };
 
 export default function CropImage({ option }: Props) {
+    const { filterImages, predict } = useFormContext();
     const [crop, setCrop] = useState<Crop>();
-    const { filterImages } = useFormContext();
     const image = filterImages.find((o) => o.key === option);
-    const activeButton = Boolean(crop?.width) && Boolean(crop?.height);
 
     if (!image) return null;
+
+    const activeButton = Boolean(crop?.width) && Boolean(crop?.height);
 
     return (
         <>
@@ -28,7 +29,7 @@ export default function CropImage({ option }: Props) {
             )}
 
             <ReactCrop
-                className="rounded shadow w-full"
+                className="rounded overflow-hidden shadow w-full"
                 crop={crop}
                 onChange={(c) => setCrop(c)}
             >
@@ -37,6 +38,7 @@ export default function CropImage({ option }: Props) {
 
             {activeButton && (
                 <Button
+                    onClick={predict}
                     color="secondary"
                     endContent={<SparklesIcon width={20} />}
                 >

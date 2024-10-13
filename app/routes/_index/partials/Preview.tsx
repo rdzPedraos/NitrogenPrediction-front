@@ -6,6 +6,7 @@ import { useStepperContext } from "@/contexts/StepperContext";
 import { useFormContext } from "@/contexts/FormContext";
 import Title from "@/components/Title";
 import CropImage from "./CropImage";
+import PredictModal from "./PredictModal";
 
 export default function Preview() {
     const { prev } = useStepperContext();
@@ -45,6 +46,8 @@ export default function Preview() {
 
                 <CropImage option={option} />
             </div>
+
+            <PredictModal />
         </>
     );
 }
