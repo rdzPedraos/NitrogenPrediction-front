@@ -1,23 +1,14 @@
-import {
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalHeader,
-    useDisclosure,
-} from "@nextui-org/react";
+import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/react";
 import { useFormContext } from "@/contexts/FormContext";
-import { useEffect } from "react";
 
 export default function PredictModal() {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const { prediction } = useFormContext();
-
-    useEffect(() => {
-        if (prediction) onOpen();
-    }, [onOpen, prediction]);
+    const { prediction, modalDisclosure } = useFormContext();
 
     return (
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <Modal
+            isOpen={modalDisclosure.isOpen}
+            onOpenChange={modalDisclosure.onOpenChange}
+        >
             <ModalContent>
                 <ModalHeader>Predicción de nitrogeno</ModalHeader>
                 <ModalBody>

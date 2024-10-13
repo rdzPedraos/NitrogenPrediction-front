@@ -6,6 +6,7 @@ import useBandImages, { BandTypes } from "@/hooks/useBandImages";
 
 import { FormMockup } from "@/helpers/mockups";
 import { nitrogenPredict, processImages } from "@/helpers/requests";
+import { useDisclosure } from "@nextui-org/react";
 
 type FormContextType = {
     BandTypes: typeof BandTypes;
@@ -19,6 +20,7 @@ type FormContextType = {
     };
     predict: () => Promise<void>;
     prediction?: NitrogenPredict;
+    modalDisclosure: ReturnType<typeof useDisclosure>;
 };
 
 const FormContext = createContext({} as FormContextType);
@@ -28,6 +30,7 @@ export default function FormProvider({
 }: {
     children: React.ReactNode;
 }) {
+    const modalDisclosure = useDisclosure();
     const { allFilled, register } = useForm(FormMockup());
     const [filterImages, setFilterImages] = useState<FilterImage[]>([]);
     const [prediction, setPrediction] = useState<NitrogenPredict>();
@@ -48,8 +51,11 @@ export default function FormProvider({
     };
 
     const predict = async () => {
-        const result = await nitrogenPredict();
-        setPrediction(result);
+        if (!prediction) {
+            const result = await nitrogenPredict();
+            setPrediction(result);
+        }
+        modalDisclosure.onOpen();
     };
 
     return (
@@ -63,6 +69,7 @@ export default function FormProvider({
                 filterImages,
                 predict,
                 prediction,
+                modalDisclosure,
             }}
         >
             {children}
