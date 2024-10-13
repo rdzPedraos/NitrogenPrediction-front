@@ -1,11 +1,10 @@
-import { DatePicker, Input } from "@nextui-org/react";
+import { Button, DatePicker, Input } from "@nextui-org/react";
 import { Reorder } from "framer-motion";
-import { Upload } from "lucide-react";
+import { ArrowRightIcon, Upload } from "lucide-react";
 
 import { useFormContext } from "@/contexts/FormContext";
 import { useStepperContext } from "@/contexts/StepperContext";
-import { NextButton, RenderSquare, UploadFileButton } from "@/components";
-import Title from "@/components/Title";
+import { RenderSquare, UploadFileButton, Title } from "@/components";
 
 export default function FormView() {
     const { next } = useStepperContext();
@@ -67,7 +66,7 @@ export default function FormView() {
                 </div>
 
                 <div className="flex flex-col gap-6">
-                    <div className={`flex gap-4`}>
+                    <div className="flex gap-6">
                         {BandTypes.map((column) => (
                             <p
                                 key={column}
@@ -104,15 +103,14 @@ export default function FormView() {
                     )}
                 </div>
 
-                <div>
-                    <NextButton
-                        onClick={next}
-                        isDisabled={!alreadyUploadImages}
-                        className="float-right"
-                    >
-                        Procesar
-                    </NextButton>
-                </div>
+                <Button
+                    onClick={next}
+                    endContent={<ArrowRightIcon width={20} />}
+                    isDisabled={!alreadyUploadImages}
+                    className="bg-gradient-primary"
+                >
+                    Procesar
+                </Button>
             </div>
         </>
     );
