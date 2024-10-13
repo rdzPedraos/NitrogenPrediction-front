@@ -3,7 +3,7 @@ import type { MetaFunction } from "@remix-run/node";
 
 import FormProvider from "@/contexts/FormContext";
 import StepperProvider, { useStepperContext } from "@/contexts/StepperContext";
-import { FormView } from "./partials";
+import { FormView, Preview } from "./partials";
 
 export const meta: MetaFunction = () => {
     return [
