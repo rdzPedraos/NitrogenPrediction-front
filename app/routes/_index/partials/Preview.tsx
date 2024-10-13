@@ -34,6 +34,7 @@ export default function Preview() {
                     label="Seleccione el tipo de formato a visualizar"
                     defaultSelectedKeys={[option]}
                     onChange={(e) => setOption(e.target.value)}
+                    disallowEmptySelection
                 >
                     {filterImages.map((image) => (
                         <SelectItem key={image.key} value={image.key}>
