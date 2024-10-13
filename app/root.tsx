@@ -31,7 +31,7 @@ export default function App() {
                 <Links />
             </head>
             <body>
-                <NextUIProvider>
+                <NextUIProvider locale="es-ES">
                     <Outlet />
                 </NextUIProvider>
 
