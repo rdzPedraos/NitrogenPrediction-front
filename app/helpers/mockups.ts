@@ -1,4 +1,4 @@
-import { CalendarDate } from "@nextui-org/react";
+import { CalendarDate } from "@internationalized/date";
 import { BasicForm, FilterImage, Image } from "@/types/models";
 
 const BandTypes = [
