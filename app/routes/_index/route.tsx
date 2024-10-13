@@ -48,5 +48,6 @@ function RenderComponent() {
 
     return {
         0: <FormView />,
+        1: <Preview />,
     }[step];
 }

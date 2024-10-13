@@ -8,8 +8,10 @@ import { RenderSquare, UploadFileButton, Title } from "@/components";
 
 export default function FormView() {
     const { next } = useStepperContext();
-    const { images, BandTypes, register, alreadyUploadImages } =
+    const { images, BandTypes, register, alreadyUploadImages, processImages } =
         useFormContext();
+
+    const onSubmit = () => processImages().then(next);
 
     return (
         <>
@@ -104,7 +106,7 @@ export default function FormView() {
                 </div>
 
                 <Button
-                    onClick={next}
+                    onClick={onSubmit}
                     endContent={<ArrowRightIcon width={20} />}
                     isDisabled={!alreadyUploadImages}
                     className="bg-gradient-primary"
