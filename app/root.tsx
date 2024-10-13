@@ -8,6 +8,7 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 
 import { NextUIProvider } from "@nextui-org/react";
+import "react-image-crop/dist/ReactCrop.css";
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [
