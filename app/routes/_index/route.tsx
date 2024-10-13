@@ -27,7 +27,7 @@ export default function Index() {
 
 function RenderProgress() {
     const { step } = useStepperContext();
-    const percentage = ((step + 1) * 100) / 3;
+    const percentage = ((step + 1) * 100) / 2;
 
     return (
         <Progress
