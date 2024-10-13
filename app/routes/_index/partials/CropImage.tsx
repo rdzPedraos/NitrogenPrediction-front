@@ -36,15 +36,14 @@ export default function CropImage({ option }: Props) {
                 <img className="w-full" alt="preview" src={image.preview} />
             </ReactCrop>
 
-            {activeButton && (
-                <Button
-                    onClick={predict}
-                    color="secondary"
-                    endContent={<SparklesIcon width={20} />}
-                >
-                    Predecir
-                </Button>
-            )}
+            <Button
+                isDisabled={!activeButton}
+                onClick={predict}
+                color="secondary"
+                endContent={<SparklesIcon width={20} />}
+            >
+                Predecir
+            </Button>
         </>
     );
 }
