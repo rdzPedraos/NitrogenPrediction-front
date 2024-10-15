@@ -1,5 +1,7 @@
 import { Button } from "@nextui-org/react";
 import { XIcon } from "lucide-react";
+import { Image } from "@/types/models";
+import ImageAdapter from "./ImageAdapter";
 
 type Props = {
     onRemove: (index: string) => void;
@@ -19,9 +21,10 @@ export default function RenderSquare({ id, src, onRemove }: Props) {
                         <XIcon width={20} />
                     </Button>
 
-                    <img
+                    <ImageAdapter
+                        from="tif"
                         draggable={false}
-                        src={src!}
+                        src={src}
                         alt="Imagen de muestra"
                         className="object-cover h-full w-full rounded-lg"
                     />

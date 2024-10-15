@@ -9,10 +9,10 @@ const BandTypes = [
     "Red edge Band",
 ];
 
-function ImageMockup(addImage: boolean): Image[] {
+function ImageMockup(addImage: boolean, prefix: string = "bands"): Image[] {
     return Array.from({ length: BandTypes.length }, (_, i) => {
         const id = Math.random().toString(36).substring(7);
-        const src = addImage ? `/mockup/bands/${i + 1}.png` : null;
+        const src = addImage ? `/mockup/${prefix}/${i + 1}.tif` : "";
 
         return { id, src };
     });

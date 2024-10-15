@@ -29,8 +29,8 @@ function useNitrogenController(): NitrogenControllerProps {
     const { allFilled, register } = useForm(FormMockup());
     const [filterImages, setFilterImages] = useState<FilterImage[]>([]);
     const [prediction, setPrediction] = useState<NitrogenPredict>();
-    const multispectral = useBandImages();
-    const refractance = useBandImages();
+    const multispectral = useBandImages("bands");
+    const refractance = useBandImages("panels");
     const modalDisclosure = useDisclosure();
 
     const alreadyUploadImages = useMemo(

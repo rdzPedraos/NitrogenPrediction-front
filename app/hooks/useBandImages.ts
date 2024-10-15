@@ -12,8 +12,8 @@ type UploadImagesReturn = {
     uploadedImages: boolean;
 };
 
-function useBandImages(): UploadImagesReturn {
-    const [images, setImages] = useState(ImageMockup(use_mockup));
+function useBandImages(type: "bands" | "panels"): UploadImagesReturn {
+    const [images, setImages] = useState(ImageMockup(use_mockup, type));
 
     const upload = (files: FileList) => {
         const f = Array.from(files);
