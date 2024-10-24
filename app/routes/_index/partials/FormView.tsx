@@ -9,7 +9,7 @@ import { RenderSquare, UploadFileButton, Title } from "@/components";
 
 export default function FormView() {
     const { next } = useStepperContext();
-    const { images, BandTypes, register, alreadyUploadImages, process } =
+    const { images, BandTypes, alreadyUploadImages, process } =
         useFormContext();
 
     const onSubmit = () => process().then(next);
@@ -17,6 +17,7 @@ export default function FormView() {
     return (
         <>
             <Title>Ingreso de variables</Title>
+
             <p className="mb-8">
                 Para usar este modelo se requiere cargar una imagen tomada con
                 una cámara multiespectral del terreno a estudiar. Las cámaras
@@ -26,50 +27,30 @@ export default function FormView() {
                 adjunte la información solicitada a continuación.
             </p>
 
+            <div className="flex flex-wrap justify-end gap-2 mb-6">
+                <UploadFileButton
+                    accept="image/tiff"
+                    isDisabled={images.multispectral.uploadedImages}
+                    onUpload={images.multispectral.upload}
+                    color="primary"
+                    endContent={<Upload width={20} />}
+                >
+                    Subir imágenes
+                </UploadFileButton>
+
+                <UploadFileButton
+                    accept="image/tiff"
+                    isDisabled={images.refractance.uploadedImages}
+                    onUpload={images.refractance.upload}
+                    color="primary"
+                    variant="flat"
+                    endContent={<Upload width={20} />}
+                >
+                    Subir imágenes panel de refractancia
+                </UploadFileButton>
+            </div>
+
             <div className="flex flex-col gap-6">
-                <div className="flex flex-col md:flex-row gap-5">
-                    <Input
-                        isRequired
-                        label="Niveles de clorofila"
-                        {...register("clorofila")}
-                        type="number"
-                    />
-
-                    <DatePicker
-                        isRequired
-                        label="Fecha inicial del cultivo"
-                        {...register("startDate", "date")}
-                    />
-                    <DatePicker
-                        isRequired
-                        label="Fecha de la toma de muestras (fotos)"
-                        {...register("captureDate", "date")}
-                    />
-                </div>
-
-                <div className="flex flex-wrap justify-end gap-2">
-                    <UploadFileButton
-                        accept="image/tiff"
-                        isDisabled={images.multispectral.uploadedImages}
-                        onUpload={images.multispectral.upload}
-                        color="primary"
-                        endContent={<Upload width={20} />}
-                    >
-                        Subir imágenes
-                    </UploadFileButton>
-
-                    <UploadFileButton
-                        accept="image/tiff"
-                        isDisabled={images.refractance.uploadedImages}
-                        onUpload={images.refractance.upload}
-                        color="primary"
-                        variant="flat"
-                        endContent={<Upload width={20} />}
-                    >
-                        Subir imágenes panel de refractancia
-                    </UploadFileButton>
-                </div>
-
                 <div className="flex flex-col gap-6">
                     <div className="flex gap-6">
                         {BandTypes.map((column) => (
