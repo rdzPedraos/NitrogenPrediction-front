@@ -1,4 +1,4 @@
-import { Button, DatePicker, Input } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { Reorder } from "framer-motion";
 import { ArrowRightIcon, Upload } from "lucide-react";
 
@@ -51,53 +51,51 @@ export default function FormView() {
             </div>
 
             <div className="flex flex-col gap-6">
-                <div className="flex flex-col gap-6">
-                    <div className="flex gap-6">
-                        {BandTypes.map((column) => (
-                            <p
-                                key={column}
-                                className="uppercase text-center font-bold flex-1"
-                            >
-                                {column}
-                            </p>
-                        ))}
-                    </div>
-
-                    {Object.values(images).map(
-                        ({ setImages, images, removeImage }, i) => (
-                            <Reorder.Group
-                                key={i}
-                                axis="x"
-                                onReorder={setImages}
-                                values={images}
-                                className="flex gap-6"
-                            >
-                                {images.map((image) => (
-                                    <Reorder.Item
-                                        key={image.id}
-                                        value={image}
-                                        className="flex-1"
-                                    >
-                                        <RenderSquare
-                                            {...image}
-                                            onRemove={removeImage}
-                                        />
-                                    </Reorder.Item>
-                                ))}
-                            </Reorder.Group>
-                        )
-                    )}
+                <div className="flex gap-6">
+                    {BandTypes.map((column) => (
+                        <p
+                            key={column}
+                            className="uppercase text-center font-bold flex-1"
+                        >
+                            {column}
+                        </p>
+                    ))}
                 </div>
 
-                <Button
-                    onClick={onSubmit}
-                    endContent={<ArrowRightIcon width={20} />}
-                    isDisabled={!alreadyUploadImages}
-                    className="bg-gradient-primary"
-                >
-                    Procesar
-                </Button>
+                {Object.values(images).map(
+                    ({ setImages, images, removeImage }, i) => (
+                        <Reorder.Group
+                            key={i}
+                            axis="x"
+                            onReorder={setImages}
+                            values={images}
+                            className="flex gap-6"
+                        >
+                            {images.map((image) => (
+                                <Reorder.Item
+                                    key={image.id}
+                                    value={image}
+                                    className="flex-1"
+                                >
+                                    <RenderSquare
+                                        {...image}
+                                        onRemove={removeImage}
+                                    />
+                                </Reorder.Item>
+                            ))}
+                        </Reorder.Group>
+                    )
+                )}
             </div>
+
+            <Button
+                onClick={onSubmit}
+                endContent={<ArrowRightIcon width={20} />}
+                isDisabled={!alreadyUploadImages}
+                className="bg-gradient-primary mt-6 w-full"
+            >
+                Procesar
+            </Button>
         </>
     );
 }
