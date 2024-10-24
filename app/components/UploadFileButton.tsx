@@ -1,7 +1,7 @@
 import { Button, ButtonProps } from "@nextui-org/react";
 
 type Props = {
-    onUpload: (files: FileList) => void;
+    onUpload: (files: File) => void;
     children: React.ReactNode;
     accept: string;
 } & ButtonProps;
@@ -19,7 +19,17 @@ export default function UploadFileButton({
         input.multiple = true;
 
         input.onchange = () => {
-            if (input.files) onUpload(input.files);
+            const files = input.files ?? [];
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (file.type !== accept) {
+                    alert("El archivo no es compatible");
+                    return;
+                }
+
+                onUpload(file);
+            }
         };
         input.click();
     };

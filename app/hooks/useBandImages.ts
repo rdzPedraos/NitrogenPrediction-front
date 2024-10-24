@@ -7,7 +7,7 @@ import { ImageMockup, BandTypes } from "@/helpers/mockups";
 type UploadImagesReturn = {
     images: Image[];
     setImages: (images: Image[]) => void;
-    upload: (files: FileList) => void;
+    upload: (files: File) => void;
     removeImage: (id: string) => void;
     uploadedImages: boolean;
 };
@@ -15,19 +15,15 @@ type UploadImagesReturn = {
 function useBandImages(type: "bands" | "panels"): UploadImagesReturn {
     const [images, setImages] = useState(ImageMockup(use_mockup, type));
 
-    const upload = (files: FileList) => {
-        const f = Array.from(files);
-        const newImages = [...images];
+    const upload = (file: File) => {
+        setImages((images) => {
+            const emptyIndex = images.findIndex((img) => !img.src);
+            if (emptyIndex === -1) return images;
 
-        // Add image from filelist if not exists in images state
-        newImages.forEach((img) => {
-            if (!img.src && f.length > 0) {
-                const file: File = f.shift()!;
-                img.src = window.URL.createObjectURL(file);
-            }
+            const newImages = [...images];
+            newImages[emptyIndex].src = window.URL.createObjectURL(file);
+            return newImages;
         });
-
-        setImages(newImages);
     };
 
     const removeImage = (id: string) => {
