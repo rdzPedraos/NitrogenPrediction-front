@@ -71,15 +71,15 @@ export default function FormView() {
                             values={images}
                             className="flex gap-6"
                         >
-                            {images.map((image) => (
+                            {images.map((image, id) => (
                                 <Reorder.Item
-                                    key={image.id}
+                                    key={id}
                                     value={image}
                                     className="flex-1"
                                 >
                                     <RenderSquare
-                                        {...image}
-                                        onRemove={removeImage}
+                                        image={image}
+                                        onRemove={() => removeImage(id)}
                                     />
                                 </Reorder.Item>
                             ))}

@@ -8,7 +8,7 @@ type UploadImagesReturn = {
     images: Image[];
     setImages: (images: Image[]) => void;
     upload: (files: File) => void;
-    removeImage: (id: string) => void;
+    removeImage: (id: number) => void;
     uploadedImages: boolean;
 };
 
@@ -17,25 +17,24 @@ function useBandImages(type: "bands" | "panels"): UploadImagesReturn {
 
     const upload = (file: File) => {
         setImages((images) => {
-            const emptyIndex = images.findIndex((img) => !img.src);
+            const emptyIndex = images.findIndex((img) => !img);
             if (emptyIndex === -1) return images;
 
             const newImages = [...images];
-            newImages[emptyIndex].src = window.URL.createObjectURL(file);
+            newImages[emptyIndex] = file;
             return newImages;
         });
     };
 
-    const removeImage = (id: string) => {
+    const removeImage = (index: number) => {
         const newArray = [...images];
-        const index = newArray.findIndex((img) => img.id === id);
-        newArray[index].src = null;
+        newArray[index] = null;
 
         setImages(newArray);
     };
 
     const uploadedImages = useMemo(() => {
-        return images.every((i) => i.src);
+        return images.every((i) => i);
     }, [images]);
 
     return {

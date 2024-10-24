@@ -1,8 +1,7 @@
 import UTIF from "utif";
 
-async function fromTifToBase64(path: string): Promise<string> {
-    const response = await fetch(path);
-    const arrayBuffer = await response.arrayBuffer();
+async function fromTifToBase64(file: File): Promise<string> {
+    const arrayBuffer = await file.arrayBuffer();
     const ifds = UTIF.decode(arrayBuffer);
     UTIF.decodeImage(arrayBuffer, ifds[0]);
     const image = UTIF.toRGBA8(ifds[0]);

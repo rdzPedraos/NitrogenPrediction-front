@@ -1,10 +1,4 @@
-import { CalendarDate } from "@nextui-org/react";
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
-type Image = {
-    id: string;
-    src: null | string;
-};
+type Image = File | null;
 
 type FilterImage = {
     key: string;
