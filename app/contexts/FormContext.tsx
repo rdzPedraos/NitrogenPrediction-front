@@ -1,5 +1,7 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import useNitrogenController from "@/hooks/useNitrogenController";
+import { useStepperContext } from "./StepperContext";
+import { loadCache, saveCache } from "@/helpers/session";
 
 type FormContextType = ReturnType<typeof useNitrogenController>;
 
@@ -10,7 +12,19 @@ export default function FormProvider({
 }: {
     children: React.ReactNode;
 }) {
+    const { setStep } = useStepperContext();
     const data = useNitrogenController();
+
+    useEffect(() => {
+        const session = loadCache("session_id");
+        if (session) data.setData("session_id", session);
+    }, []);
+
+    useEffect(() => {
+        setStep(data.data.session_id ? "processing" : "upload");
+        saveCache("session_id", data.data.session_id);
+    }, [data.data.session_id, setStep]);
+
     return <FormContext.Provider value={data}>{children}</FormContext.Provider>;
 }
 

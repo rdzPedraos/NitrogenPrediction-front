@@ -1,11 +1,17 @@
-import { useMemo, useState } from "react";
-import { BasicForm, ProcessingStatus } from "@/types/models";
+import { useEffect, useMemo, useState } from "react";
+import {
+    BasicForm,
+    NitrogenPrediction,
+    ProcessingStatus,
+} from "@/types/models";
 
 import useForm from "@/hooks/useForm";
 import useBandImages, { BandTypes } from "@/hooks/useBandImages";
 
+import { saveCache } from "@/helpers/session";
 import { FormMockup, ProcessingStatusMockup } from "@/helpers/mockups";
 import {
+    predictRequest,
     processRequest,
     statusRequest,
     uploadRequest,
@@ -19,11 +25,14 @@ type NitrogenControllerProps = ReturnType<typeof useForm<BasicForm>> & {
         refractance: ReturnType<typeof useBandImages>;
     };
 
+    clearSession: () => void;
+
     processing: boolean;
     processImages: () => Promise<void>;
     status: ProcessingStatus;
 
     predict: () => Promise<void>;
+    prediction: NitrogenPrediction;
 };
 
 function useNitrogenController(): NitrogenControllerProps {
@@ -32,6 +41,7 @@ function useNitrogenController(): NitrogenControllerProps {
     const refractance = useBandImages("panels");
 
     const [status, setStatus] = useState(ProcessingStatusMockup());
+    const [prediction, setPrediction] = useState({} as NitrogenPrediction);
 
     const alreadyUploadImages = useMemo(
         () => multispectral.uploadedImages && refractance.uploadedImages,
@@ -42,6 +52,21 @@ function useNitrogenController(): NitrogenControllerProps {
         if (!status.length) return false;
         return status.some(({ status }) => !status);
     }, [status]);
+
+    useEffect(() => {
+        if (!data.session_id) return;
+        statusRequest(data.session_id).then(setStatus);
+    }, [data.session_id]);
+
+    useEffect(() => {
+        if (!(data.session_id && processing)) return;
+
+        const interval = setInterval(() => {
+            statusRequest(data.session_id as string).then(setStatus);
+        }, 2000);
+
+        return () => clearInterval(interval);
+    }, [processing, data.session_id]);
 
     const processImages = async () => {
         if (data.session_id) return;
@@ -55,21 +80,20 @@ function useNitrogenController(): NitrogenControllerProps {
         );
 
         setData("session_id", session_id);
-
-        new Promise((resolve, reject) => {
-            const interval = setInterval(async () => {
-                const status = await statusRequest(session_id);
-                setStatus(status);
-            }, 1000);
-
-            processRequest(session_id)
-                .then(resolve)
-                .catch(reject)
-                .finally(() => clearInterval(interval));
-        });
+        processRequest(session_id);
     };
 
-    const predict = async () => {};
+    const clearSession = () => {
+        setData("session_id", "");
+        saveCache("session_id", "");
+    };
+
+    const predict = async () => {
+        if (!data.session_id) return;
+
+        const prediction = await predictRequest(data.session_id, data);
+        setPrediction(prediction);
+    };
 
     return {
         BandTypes,
@@ -80,11 +104,14 @@ function useNitrogenController(): NitrogenControllerProps {
         images: { multispectral, refractance },
         alreadyUploadImages,
 
+        clearSession,
+
         processing,
         processImages,
         status,
 
         predict,
+        prediction,
     };
 }
 

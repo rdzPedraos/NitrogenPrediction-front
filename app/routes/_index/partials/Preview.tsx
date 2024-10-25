@@ -5,10 +5,10 @@ import { RefreshCcw, SparklesIcon } from "lucide-react";
 
 import { ProcessingStatus } from "@/types/models";
 
-import { useStepperContext } from "@/contexts/StepperContext";
 import { useFormContext } from "@/contexts/FormContext";
 import Title from "@/components/Title";
 import CropImage from "./CropImage";
+import { useStepperContext } from "@/contexts/StepperContext";
 
 export default function Preview() {
     const { setStep } = useStepperContext();
@@ -38,12 +38,7 @@ export default function Preview() {
 
     return (
         <>
-            <MoveLeftIcon
-                onClick={prev}
-                className="text-secondary cursor-pointer"
-                size={30}
-            />
-
+            <button onClick={clearSession}>Clear</button>
             <Title>Indices de vegetación</Title>
 
             <p className="mb-8">

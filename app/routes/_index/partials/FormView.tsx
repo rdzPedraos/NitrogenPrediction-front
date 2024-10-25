@@ -4,12 +4,10 @@ import { toast } from "sonner";
 import { ArrowRightIcon, Upload } from "lucide-react";
 
 import { useFormContext } from "@/contexts/FormContext";
-import { useStepperContext } from "@/contexts/StepperContext";
 
 import { RenderSquare, UploadFileButton, Title } from "@/components";
 
 export default function FormView() {
-    const { next } = useStepperContext();
     const { images, BandTypes, alreadyUploadImages, processImages } =
         useFormContext();
 
@@ -20,7 +18,6 @@ export default function FormView() {
             success: "Imágenes cargadas correctamente",
             error: "Error al cargar las imágenes",
         });
-        promise.then(next);
     };
 
     return (
