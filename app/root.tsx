@@ -34,7 +34,7 @@ export default function App() {
             <body className="overflow-y-scroll">
                 <NextUIProvider locale="es-ES">
                     <Outlet />
-                    <Toaster richColors />
+                    <Toaster richColors position="top-center" />
                 </NextUIProvider>
 
                 <ScrollRestoration />
