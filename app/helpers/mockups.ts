@@ -8,19 +8,11 @@ const BandTypes = [
     "Red edge Band",
 ];
 
-function ImageMockup(addImage: boolean, prefix: string = "bands"): Image[] {
-    return Array.from({ length: BandTypes.length }, (_, i) => {
-        if (!addImage) return null;
-
-        const file = new File([""], `${prefix}-${i}.png`, {
-            type: "image/png",
-        });
-
-        return file;
-    });
+function defaultImages(): Image[] {
+    return Array.from({ length: BandTypes.length }, () => null);
 }
 
-function FormMockup(): BasicForm {
+function defaultForm(): BasicForm {
     return {
         session_id: null,
         roi_coordinates: {
@@ -39,8 +31,8 @@ function FormMockup(): BasicForm {
     };
 }
 
-function ProcessingStatusMockup(): ProcessingStatus {
+function defaultProcessingStatus(): ProcessingStatus {
     return [];
 }
 
-export { BandTypes, ImageMockup, FormMockup, ProcessingStatusMockup };
+export { BandTypes, defaultImages, defaultForm, defaultProcessingStatus };

@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
-import { use_mockup } from "@/env";
 
 import { Image } from "@/types/models";
-import { ImageMockup, BandTypes } from "@/helpers/mockups";
+import { BandTypes, defaultImages } from "@/helpers/mockups";
 
 type UploadImagesReturn = {
     images: Image[];
@@ -12,8 +11,8 @@ type UploadImagesReturn = {
     uploadedImages: boolean;
 };
 
-function useBandImages(type: "bands" | "panels"): UploadImagesReturn {
-    const [images, setImages] = useState(ImageMockup(use_mockup, type));
+function useBandImages(): UploadImagesReturn {
+    const [images, setImages] = useState(defaultImages());
 
     const upload = (file: File) => {
         setImages((images) => {
