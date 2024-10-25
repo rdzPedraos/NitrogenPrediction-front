@@ -10,6 +10,7 @@ import type { LinksFunction } from "@remix-run/node";
 import { NextUIProvider } from "@nextui-org/react";
 import "react-image-crop/dist/ReactCrop.css";
 import "./tailwind.css";
+import { Toaster } from "sonner";
 
 export const links: LinksFunction = () => [
     {
@@ -33,6 +34,7 @@ export default function App() {
             <body>
                 <NextUIProvider locale="es-ES">
                     <Outlet />
+                    <Toaster richColors />
                 </NextUIProvider>
 
                 <ScrollRestoration />
