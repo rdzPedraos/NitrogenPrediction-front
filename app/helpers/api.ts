@@ -1,6 +1,5 @@
 import _axios from "axios";
-const baseURL = process.env.API_URL;
-
+const baseURL = import.meta.env.VITE_API_URL;
 const api = _axios.create({
     baseURL,
 });

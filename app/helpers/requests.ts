@@ -1,35 +1,33 @@
 import api from "./api";
-import { use_mockup } from "@/env";
-import { FilterImage, NitrogenPredict } from "@/types/models";
-import { FilterImageMockup } from "@/helpers/mockups";
 
-function getToken() {
-    const token = localStorage.getItem("token");
-    if (token) {
-        return Promise.resolve(token);
-    }
+async function uploadRequest(
+    multispectral: File[],
+    refranctacy: File[]
+): Promise<string> {
+    const formData = new FormData();
 
-    return api.get("/get-token").then((response) => {
-        const token = response.data.token;
-        localStorage.setItem("token", token);
-        return token;
+    multispectral.forEach((file) => {
+        formData.append("multispectral", file);
     });
+
+    refranctacy.forEach((file) => {
+        formData.append("refranctacy", file);
+    });
+
+    const { data } = await api.post("/upload-images", formData);
+    return data.session_id;
 }
 
-async function processImages(): Promise<FilterImage[]> {
-    if (use_mockup) {
-        return FilterImageMockup();
-    }
-
-    return [];
+function processRequest(session_id: string) {
+    return api.post(`/${session_id}/process`);
 }
 
-async function nitrogenPredict(): Promise<NitrogenPredict> {
-    if (use_mockup) {
-        return { nitrogen: 0 };
-    }
-
-    return { nitrogen: 0 };
+function statusRequest(session_id: string) {
+    return api.get(`/${session_id}/status`);
 }
 
-export { getToken, processImages, nitrogenPredict };
+function predictRequest(session_id: string, data: any) {
+    return api.post(`/${session_id}/predict`, data);
+}
+
+export { uploadRequest, processRequest, statusRequest, predictRequest };

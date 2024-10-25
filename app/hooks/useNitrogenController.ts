@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useDisclosure } from "@nextui-org/react";
 import { FilterImage, NitrogenPredict } from "@/types/models";
 
@@ -6,7 +6,7 @@ import useForm from "@/hooks/useForm";
 import useBandImages, { BandTypes } from "@/hooks/useBandImages";
 
 import { FormMockup } from "@/helpers/mockups";
-import { nitrogenPredict, processImages } from "@/helpers/requests";
+import { processRequest, uploadRequest } from "@/helpers/requests";
 
 type NitrogenControllerProps = {
     BandTypes: typeof BandTypes;
@@ -37,17 +37,22 @@ function useNitrogenController(): NitrogenControllerProps {
     );
 
     const process = async () => {
-        const images = await processImages();
-        setFilterImages(images);
+        if (!alreadyUploadImages) return;
+
+        if (!data.session_id) {
+            const session_id =
+                data.session_id ||
+                (await uploadRequest(
+                    multispectral.images as unknown as File[],
+                    refractance.images as unknown as File[]
+                ));
+
+            setData("session_id", session_id);
+            processRequest(session_id);
+        }
     };
 
-    const predict = async () => {
-        if (!prediction) {
-            const result = await nitrogenPredict();
-            setPrediction(result);
-        }
-        modalDisclosure.onOpen();
-    };
+    const predict = async () => {};
 
     return {
         BandTypes,
@@ -55,9 +60,9 @@ function useNitrogenController(): NitrogenControllerProps {
         alreadyUploadImages,
         images: { multispectral, refractance },
         process,
-        filterImages,
+        filterImages: [],
         predict,
-        prediction,
+        prediction: undefined,
         modalDisclosure,
     };
 }
