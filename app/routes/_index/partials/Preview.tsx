@@ -11,8 +11,7 @@ import Title from "@/components/Title";
 import CropImage from "./CropImage";
 
 export default function Preview() {
-    const { prev } = useStepperContext();
-    const { status, processing } = useFormContext();
+    const { setStep } = useStepperContext();
     const [option, setOption] = useState<ProcessingStatus[number]>();
     const { status, processing, data, predict, clearSession } =
         useFormContext();
