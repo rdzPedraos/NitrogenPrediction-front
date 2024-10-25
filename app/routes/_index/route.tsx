@@ -2,7 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { Progress } from "@nextui-org/react";
 
 import FormProvider, { useFormContext } from "@/contexts/FormContext";
-import { FormView, Preview, Prediction } from "./partials";
+import { FormView, Preview, Prediction, Drawable } from "./partials";
 
 export const meta: MetaFunction = () => {
     return [
@@ -14,9 +14,18 @@ export const meta: MetaFunction = () => {
 export default function Index() {
     return (
         <FormProvider>
-            <RenderProgress />
-            <div className="max-w-6xl px-4 mx-auto my-16">
-                <RenderComponent />
+            <div className="grid grid-cols-[auto,1fr] grid-rows-[auto,1fr] h-screen">
+                <div className="col-span-2 shadow">
+                    <RenderProgress />
+                </div>
+
+                <Drawable />
+
+                <div className="overflow-y-auto">
+                    <div className="px-6 py-4 xl:py-16 max-w-6xl mx-auto">
+                        <RenderComponent />
+                    </div>
+                </div>
             </div>
         </FormProvider>
     );
@@ -31,7 +40,6 @@ function RenderProgress() {
             value={stepPercentage}
             radius="none"
             classNames={{
-                base: "fixed top-0 w-full z-50",
                 track: "bg-default-300/90 h-4",
                 indicator: "bg-gradient-primary",
             }}

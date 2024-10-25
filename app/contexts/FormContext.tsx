@@ -2,9 +2,11 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { loadCache, saveCache } from "@/helpers/session";
 import useNitrogenController from "@/hooks/useNitrogenController";
 import useStepper from "@/hooks/useStepper";
+import useSideBar from "@/hooks/useSideBar";
 
 type FormContextType = ReturnType<typeof useNitrogenController> &
-    ReturnType<typeof useStepper>;
+    ReturnType<typeof useStepper> &
+    ReturnType<typeof useSideBar>;
 
 const FormContext = createContext({} as FormContextType);
 
@@ -14,6 +16,8 @@ export default function FormProvider({
     children: React.ReactNode;
 }) {
     const [loading, setLoading] = useState(true);
+
+    const sidebarprops = useSideBar();
     const { setStep, ...sprops } = useStepper();
     const { data, setData, ...ncprops } = useNitrogenController();
 
@@ -33,7 +37,14 @@ export default function FormProvider({
 
     return (
         <FormContext.Provider
-            value={{ setData, data, setStep, ...sprops, ...ncprops }}
+            value={{
+                setData,
+                data,
+                setStep,
+                ...sprops,
+                ...ncprops,
+                ...sidebarprops,
+            }}
         >
             {loading ? <div>Cargando...</div> : children}
         </FormContext.Provider>

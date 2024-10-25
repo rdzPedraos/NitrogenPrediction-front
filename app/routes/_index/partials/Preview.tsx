@@ -11,8 +11,7 @@ import CropImage from "./CropImage";
 
 export default function Preview() {
     const [option, setOption] = useState<ProcessingStatus[number]>();
-    const { status, processing, data, predict, clearSession, setStep } =
-        useFormContext();
+    const { status, processing, data, predict, setStep } = useFormContext();
 
     const onSelectFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const filter = status.find((s) => s.key === e.target.value);
@@ -36,7 +35,6 @@ export default function Preview() {
 
     return (
         <>
-            <button onClick={clearSession}>Clear</button>
             <Title>Indices de vegetación</Title>
 
             <p className="mb-8">
