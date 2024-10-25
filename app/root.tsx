@@ -31,7 +31,7 @@ export default function App() {
                 <Meta />
                 <Links />
             </head>
-            <body>
+            <body className="overflow-y-scroll">
                 <NextUIProvider locale="es-ES">
                     <Outlet />
                     <Toaster richColors />

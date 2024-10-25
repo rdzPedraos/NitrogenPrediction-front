@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from "react";
 
+type Steps = "upload" | "processing" | "result";
 type StepperContextType = {
-    step: number;
-    setStep: (step: number) => void;
-    next: () => void;
-    prev: () => void;
+    step: Steps;
+    setStep: (step: Steps) => void;
+    stepPercentage: number;
 };
 
 const StepperContext = createContext({} as StepperContextType);
@@ -14,18 +14,16 @@ export default function StepperProvider({
 }: {
     children: React.ReactNode;
 }) {
-    const [step, setStep] = useState<number>(0);
-
-    const next = () => setStep((s) => s + 1);
-    const prev = () => setStep((s) => s - 1);
+    const [step, setStep] = useState<Steps>("upload");
+    const steps = ["upload", "processing", "result"];
+    const stepPercentage = ((steps.indexOf(step) + 1) * 100) / steps.length;
 
     return (
         <StepperContext.Provider
             value={{
                 step,
                 setStep,
-                next,
-                prev,
+                stepPercentage,
             }}
         >
             {children}

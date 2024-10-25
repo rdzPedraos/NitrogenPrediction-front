@@ -3,7 +3,7 @@ import { Progress } from "@nextui-org/react";
 
 import FormProvider from "@/contexts/FormContext";
 import StepperProvider, { useStepperContext } from "@/contexts/StepperContext";
-import { FormView, Preview } from "./partials";
+import { FormView, Preview, Prediction } from "./partials";
 
 export const meta: MetaFunction = () => {
     return [
@@ -26,13 +26,12 @@ export default function Index() {
 }
 
 function RenderProgress() {
-    const { step } = useStepperContext();
-    const percentage = ((step + 1) * 100) / 2;
+    const { stepPercentage } = useStepperContext();
 
     return (
         <Progress
             aria-label="Loading..."
-            value={percentage}
+            value={stepPercentage}
             radius="none"
             classNames={{
                 base: "fixed top-0 w-full z-50",
@@ -47,7 +46,8 @@ function RenderComponent() {
     const { step } = useStepperContext();
 
     return {
-        0: <FormView />,
-        1: <Preview />,
+        upload: <FormView />,
+        processing: <Preview />,
+        result: <Prediction />,
     }[step];
 }

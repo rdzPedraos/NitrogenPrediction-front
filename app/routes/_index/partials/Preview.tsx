@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Select, SelectItem } from "@nextui-org/react";
-import { MoveLeftIcon, RefreshCcw } from "lucide-react";
+import { toast } from "sonner";
+import { Button, Select, SelectItem } from "@nextui-org/react";
+import { RefreshCcw, SparklesIcon } from "lucide-react";
 
 import { ProcessingStatus } from "@/types/models";
 
@@ -13,10 +14,27 @@ export default function Preview() {
     const { prev } = useStepperContext();
     const { status, processing } = useFormContext();
     const [option, setOption] = useState<ProcessingStatus[number]>();
+    const { status, processing, data, predict, clearSession } =
+        useFormContext();
 
     const onSelectFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const filter = status.find((s) => s.key === e.target.value);
         setOption(filter);
+    };
+
+    const activeButton =
+        !processing &&
+        data.roi_coordinates.width &&
+        data.roi_coordinates.height;
+
+    const onPredict = () => {
+        const promise = predict();
+        toast.promise(promise, {
+            loading: "Prediciendo",
+            success: "Predicción completada",
+            error: "Error al predecir",
+        });
+        promise.then(() => setStep("processing"));
     };
 
     return (
@@ -68,7 +86,19 @@ export default function Preview() {
                     </Select>
                 </div>
 
-                {option && <CropImage option={option} />}
+                {option && (
+                    <>
+                        <CropImage option={option} />
+                        <Button
+                            isDisabled={!activeButton}
+                            onClick={onPredict}
+                            color="secondary"
+                            endContent={<SparklesIcon width={20} />}
+                        >
+                            Predecir
+                        </Button>
+                    </>
+                )}
             </div>
         </>
     );

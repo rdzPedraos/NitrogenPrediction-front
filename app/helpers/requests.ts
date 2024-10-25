@@ -1,4 +1,8 @@
-import { ImageType, ProcessingStatus } from "@/types/models";
+import {
+    ImageType,
+    NitrogenPrediction,
+    ProcessingStatus,
+} from "@/types/models";
 import api from "./api";
 
 async function uploadRequest(
@@ -28,7 +32,10 @@ async function statusRequest(session_id: string): Promise<ProcessingStatus> {
     return data;
 }
 
-function predictRequest(session_id: string, data: any) {
+function predictRequest(
+    session_id: string,
+    data: any
+): Promise<NitrogenPrediction> {
     return api.post(`/${session_id}/predict`, data);
 }
 

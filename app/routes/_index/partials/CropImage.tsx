@@ -1,6 +1,4 @@
-import { SparklesIcon } from "lucide-react";
 import { ReactCrop } from "react-image-crop";
-import { Button } from "@nextui-org/react";
 
 import { ProcessingStatus } from "@/types/models";
 
@@ -12,7 +10,7 @@ type Props = {
 };
 
 export default function CropImage({ option }: Props) {
-    const { data, setData, predict } = useFormContext();
+    const { data, setData } = useFormContext();
 
     const histogramUrl = getUrlImage(
         data.session_id as string,
@@ -25,9 +23,6 @@ export default function CropImage({ option }: Props) {
         "images",
         option.key
     );
-
-    const activeButton =
-        data.roi_coordinates.width && data.roi_coordinates.height;
 
     return (
         <>
@@ -44,15 +39,6 @@ export default function CropImage({ option }: Props) {
             >
                 <img className="w-full" alt="preview" src={imageUrl} />
             </ReactCrop>
-
-            <Button
-                isDisabled={!activeButton}
-                onClick={predict}
-                color="secondary"
-                endContent={<SparklesIcon width={20} />}
-            >
-                Predecir
-            </Button>
         </>
     );
 }

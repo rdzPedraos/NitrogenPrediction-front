@@ -18,8 +18,14 @@ type BasicForm = {
 type ProcessingStatus = { key: string; label: string; status: boolean }[];
 type ImageType = "histograms" | "images";
 
-type NitrogenPredict = {
+type NitrogenPrediction = {
     nitrogen: number;
 };
 
-export type { Image, ImageType, ProcessingStatus, BasicForm, NitrogenPredict };
+export type {
+    Image,
+    ImageType,
+    ProcessingStatus,
+    BasicForm,
+    NitrogenPrediction,
+};
