@@ -8,12 +8,10 @@ import { ProcessingStatus } from "@/types/models";
 import { useFormContext } from "@/contexts/FormContext";
 import Title from "@/components/Title";
 import CropImage from "./CropImage";
-import { useStepperContext } from "@/contexts/StepperContext";
 
 export default function Preview() {
-    const { setStep } = useStepperContext();
     const [option, setOption] = useState<ProcessingStatus[number]>();
-    const { status, processing, data, predict, clearSession } =
+    const { status, processing, data, predict, clearSession, setStep } =
         useFormContext();
 
     const onSelectFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {

@@ -1,8 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Progress } from "@nextui-org/react";
 
-import FormProvider from "@/contexts/FormContext";
-import StepperProvider, { useStepperContext } from "@/contexts/StepperContext";
+import FormProvider, { useFormContext } from "@/contexts/FormContext";
 import { FormView, Preview, Prediction } from "./partials";
 
 export const meta: MetaFunction = () => {
@@ -14,19 +13,17 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
     return (
-        <StepperProvider>
-            <FormProvider>
-                <RenderProgress />
-                <div className="max-w-6xl px-4 mx-auto my-16">
-                    <RenderComponent />
-                </div>
-            </FormProvider>
-        </StepperProvider>
+        <FormProvider>
+            <RenderProgress />
+            <div className="max-w-6xl px-4 mx-auto my-16">
+                <RenderComponent />
+            </div>
+        </FormProvider>
     );
 }
 
 function RenderProgress() {
-    const { stepPercentage } = useStepperContext();
+    const { stepPercentage } = useFormContext();
 
     return (
         <Progress
@@ -43,7 +40,7 @@ function RenderProgress() {
 }
 
 function RenderComponent() {
-    const { step } = useStepperContext();
+    const { step } = useFormContext();
 
     return {
         upload: <FormView />,
