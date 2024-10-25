@@ -1,3 +1,4 @@
+import { ImageType, ProcessingStatus } from "@/types/models";
 import api from "./api";
 
 async function uploadRequest(
@@ -7,27 +8,42 @@ async function uploadRequest(
     const formData = new FormData();
 
     multispectral.forEach((file) => {
-        formData.append("multispectral", file);
+        formData.append("bands", file);
     });
 
     refranctacy.forEach((file) => {
-        formData.append("refranctacy", file);
+        formData.append("panels", file);
     });
 
     const { data } = await api.post("/upload-images", formData);
     return data.session_id;
 }
 
-function processRequest(session_id: string) {
+function processRequest(session_id: string): Promise<void> {
     return api.post(`/${session_id}/process`);
 }
 
-function statusRequest(session_id: string) {
-    return api.get(`/${session_id}/status`);
+async function statusRequest(session_id: string): Promise<ProcessingStatus> {
+    const { data } = await api.get(`/${session_id}/status`);
+    return data;
 }
 
 function predictRequest(session_id: string, data: any) {
     return api.post(`/${session_id}/predict`, data);
 }
 
-export { uploadRequest, processRequest, statusRequest, predictRequest };
+function getUrlImage(
+    session_id: string,
+    type: ImageType,
+    band: string
+): string {
+    return `${api.getUri()}/${session_id}/storage/${type}/${band}`;
+}
+
+export {
+    uploadRequest,
+    processRequest,
+    statusRequest,
+    predictRequest,
+    getUrlImage,
+};

@@ -1,5 +1,6 @@
 import { Button } from "@nextui-org/react";
 import { Reorder } from "framer-motion";
+import { toast } from "sonner";
 import { ArrowRightIcon, Upload } from "lucide-react";
 
 import { useFormContext } from "@/contexts/FormContext";
@@ -9,10 +10,18 @@ import { RenderSquare, UploadFileButton, Title } from "@/components";
 
 export default function FormView() {
     const { next } = useStepperContext();
-    const { images, BandTypes, alreadyUploadImages, process } =
+    const { images, BandTypes, alreadyUploadImages, processImages } =
         useFormContext();
 
-    const onSubmit = () => process().then(next);
+    const onSubmit = () => {
+        const promise = processImages();
+        toast.promise(promise, {
+            loading: "Cargando imágenes...",
+            success: "Imágenes cargadas correctamente",
+            error: "Error al cargar las imágenes",
+        });
+        promise.then(next);
+    };
 
     return (
         <>

@@ -1,17 +1,23 @@
 import { useState } from "react";
 import { Select, SelectItem } from "@nextui-org/react";
-import { MoveLeftIcon } from "lucide-react";
+import { MoveLeftIcon, RefreshCcw } from "lucide-react";
+
+import { ProcessingStatus } from "@/types/models";
 
 import { useStepperContext } from "@/contexts/StepperContext";
 import { useFormContext } from "@/contexts/FormContext";
 import Title from "@/components/Title";
 import CropImage from "./CropImage";
-import PredictModal from "./PredictModal";
 
 export default function Preview() {
     const { prev } = useStepperContext();
-    const { filterImages } = useFormContext();
-    const [option, setOption] = useState<string>("default");
+    const { status, processing } = useFormContext();
+    const [option, setOption] = useState<ProcessingStatus[number]>();
+
+    const onSelectFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const filter = status.find((s) => s.key === e.target.value);
+        setOption(filter);
+    };
 
     return (
         <>
@@ -31,23 +37,39 @@ export default function Preview() {
             </p>
 
             <div className="flex flex-col gap-6 mt-4 max-w-xl mx-auto">
-                <Select
-                    label="Seleccione el tipo de formato a visualizar"
-                    defaultSelectedKeys={[option]}
-                    onChange={(e) => setOption(e.target.value)}
-                    disallowEmptySelection
-                >
-                    {filterImages.map((image) => (
-                        <SelectItem key={image.key} value={image.key}>
-                            {image.label}
-                        </SelectItem>
-                    ))}
-                </Select>
+                <div>
+                    {processing && (
+                        <p className="text-sm text-secondary flex items-center gap-2 animate-pulse">
+                            <RefreshCcw className="animate-spin" size={15} />
+                            Procesando imágenes
+                        </p>
+                    )}
 
-                <CropImage option={option} />
+                    <Select
+                        label="Seleccione el tipo de formato a visualizar"
+                        onChange={onSelectFilter}
+                        isDisabled={status.every((s) => !s.status)}
+                        disabledKeys={status
+                            .filter((s) => !s.status)
+                            .map((s) => s.key)}
+                        disallowEmptySelection
+                    >
+                        {status.map(({ key, label }) => {
+                            return (
+                                <SelectItem
+                                    key={key}
+                                    value={key}
+                                    textValue={label}
+                                >
+                                    {key.toUpperCase()}: {label}
+                                </SelectItem>
+                            );
+                        })}
+                    </Select>
+                </div>
+
+                {option && <CropImage option={option} />}
             </div>
-
-            <PredictModal />
         </>
     );
 }

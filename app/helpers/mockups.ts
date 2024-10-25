@@ -1,4 +1,4 @@
-import { BasicForm, FilterImage, Image } from "@/types/models";
+import { BasicForm, ProcessingStatus, Image } from "@/types/models";
 
 const BandTypes = [
     "Blue band",
@@ -24,10 +24,11 @@ function FormMockup(): BasicForm {
     return {
         session_id: null,
         roi_coordinates: {
-            x1: 0,
-            y1: 0,
-            x2: 0,
-            y2: 0,
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0,
+            unit: "px",
         },
         data_iot: {
             soil_humedity: 2,
@@ -38,26 +39,8 @@ function FormMockup(): BasicForm {
     };
 }
 
-function FilterImageMockup(): FilterImage[] {
-    return [
-        {
-            key: "default",
-            label: "Imagen original",
-            preview: "/mockup/preview/normal.png",
-        },
-        {
-            key: "GNDVI",
-            label: "Green Normalized Difference Vegetation Index",
-            histogram: "/mockup/histograms/GNDVI.png",
-            preview: "/mockup/preview/GNDVI.png",
-        },
-        {
-            key: "NDVI",
-            label: "Normalized difference vegetation index",
-            histogram: "/mockup/histograms/NDVI.png",
-            preview: "/mockup/preview/NDVI.png",
-        },
-    ];
+function ProcessingStatusMockup(): ProcessingStatus {
+    return [];
 }
 
-export { BandTypes, ImageMockup, FormMockup, FilterImageMockup };
+export { BandTypes, ImageMockup, FormMockup, ProcessingStatusMockup };

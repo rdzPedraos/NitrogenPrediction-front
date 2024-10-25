@@ -1,69 +1,90 @@
-import { useMemo } from "react";
-import { useDisclosure } from "@nextui-org/react";
-import { FilterImage, NitrogenPredict } from "@/types/models";
+import { useMemo, useState } from "react";
+import { BasicForm, ProcessingStatus } from "@/types/models";
 
 import useForm from "@/hooks/useForm";
 import useBandImages, { BandTypes } from "@/hooks/useBandImages";
 
-import { FormMockup } from "@/helpers/mockups";
-import { processRequest, uploadRequest } from "@/helpers/requests";
+import { FormMockup, ProcessingStatusMockup } from "@/helpers/mockups";
+import {
+    processRequest,
+    statusRequest,
+    uploadRequest,
+} from "@/helpers/requests";
 
-type NitrogenControllerProps = {
+type NitrogenControllerProps = ReturnType<typeof useForm<BasicForm>> & {
     BandTypes: typeof BandTypes;
-    register: ReturnType<typeof useForm>["register"];
     alreadyUploadImages: boolean;
     images: {
         multispectral: ReturnType<typeof useBandImages>;
         refractance: ReturnType<typeof useBandImages>;
     };
 
-    process: () => Promise<void>;
-    filterImages: FilterImage[];
+    processing: boolean;
+    processImages: () => Promise<void>;
+    status: ProcessingStatus;
 
     predict: () => Promise<void>;
-    prediction?: NitrogenPredict;
-    modalDisclosure: ReturnType<typeof useDisclosure>;
 };
 
 function useNitrogenController(): NitrogenControllerProps {
     const { register, setData, data } = useForm(FormMockup());
     const multispectral = useBandImages("bands");
     const refractance = useBandImages("panels");
-    const modalDisclosure = useDisclosure();
+
+    const [status, setStatus] = useState(ProcessingStatusMockup());
 
     const alreadyUploadImages = useMemo(
         () => multispectral.uploadedImages && refractance.uploadedImages,
         [multispectral, refractance]
     );
 
-    const process = async () => {
-        if (!alreadyUploadImages) return;
+    const processing = useMemo(() => {
+        if (!status.length) return false;
+        return status.some(({ status }) => !status);
+    }, [status]);
 
-        if (!data.session_id) {
-            const session_id =
-                data.session_id ||
-                (await uploadRequest(
-                    multispectral.images as unknown as File[],
-                    refractance.images as unknown as File[]
-                ));
-
-            setData("session_id", session_id);
-            processRequest(session_id);
+    const processImages = async () => {
+        if (data.session_id) return;
+        if (!alreadyUploadImages) {
+            throw new Error("No se han subido las imágenes");
         }
+
+        const session_id = await uploadRequest(
+            multispectral.images as unknown as File[],
+            refractance.images as unknown as File[]
+        );
+
+        setData("session_id", session_id);
+
+        new Promise((resolve, reject) => {
+            const interval = setInterval(async () => {
+                const status = await statusRequest(session_id);
+                setStatus(status);
+            }, 1000);
+
+            processRequest(session_id)
+                .then(resolve)
+                .catch(reject)
+                .finally(() => clearInterval(interval));
+        });
     };
 
     const predict = async () => {};
 
     return {
         BandTypes,
+
         register,
-        alreadyUploadImages,
+        setData,
+        data,
         images: { multispectral, refractance },
-        process,
-        filterImages: [],
+        alreadyUploadImages,
+
+        processing,
+        processImages,
+        status,
+
         predict,
-        prediction: undefined,
-        modalDisclosure,
     };
 }
 

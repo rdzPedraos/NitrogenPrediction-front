@@ -1,21 +1,11 @@
-type Image = File | null;
+import { Crop } from "react-image-crop";
 
-type FilterImage = {
-    key: string;
-    label: string;
-    histogram?: string;
-    preview: string;
-};
+type Image = File | null;
 
 type BasicForm = {
     session_id: string | null;
 
-    roi_coordinates: {
-        x1: number;
-        y1: number;
-        x2: number;
-        y2: number;
-    };
+    roi_coordinates: Crop;
 
     data_iot: {
         soil_humedity: number;
@@ -25,8 +15,11 @@ type BasicForm = {
     };
 };
 
+type ProcessingStatus = { key: string; label: string; status: boolean }[];
+type ImageType = "histograms" | "images";
+
 type NitrogenPredict = {
     nitrogen: number;
 };
 
-export type { Image, FilterImage, BasicForm, NitrogenPredict };
+export type { Image, ImageType, ProcessingStatus, BasicForm, NitrogenPredict };

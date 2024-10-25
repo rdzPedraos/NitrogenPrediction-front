@@ -1,39 +1,48 @@
-import { useState } from "react";
 import { SparklesIcon } from "lucide-react";
-import { ReactCrop, Crop } from "react-image-crop";
+import { ReactCrop } from "react-image-crop";
 import { Button } from "@nextui-org/react";
 
+import { ProcessingStatus } from "@/types/models";
+
 import { useFormContext } from "@/contexts/FormContext";
+import { getUrlImage } from "@/helpers/requests";
 
 type Props = {
-    option?: string;
+    option: ProcessingStatus[number];
 };
 
 export default function CropImage({ option }: Props) {
-    const { filterImages, predict } = useFormContext();
-    const [crop, setCrop] = useState<Crop>();
-    const image = filterImages.find((o) => o.key === option);
+    const { data, setData, predict } = useFormContext();
 
-    if (!image) return null;
+    const histogramUrl = getUrlImage(
+        data.session_id as string,
+        "histograms",
+        option.key
+    );
 
-    const activeButton = Boolean(crop?.width) && Boolean(crop?.height);
+    const imageUrl = getUrlImage(
+        data.session_id as string,
+        "images",
+        option.key
+    );
+
+    const activeButton =
+        data.roi_coordinates.width && data.roi_coordinates.height;
 
     return (
         <>
-            {image.histogram && (
-                <img
-                    alt="histogram"
-                    className="rounded shadow"
-                    src={image.histogram}
-                />
-            )}
+            <img
+                alt="histogram"
+                className="rounded shadow"
+                src={histogramUrl}
+            />
 
             <ReactCrop
                 className="rounded overflow-hidden shadow w-full"
-                crop={crop}
-                onChange={(c) => setCrop(c)}
+                crop={data.roi_coordinates}
+                onChange={(crop) => setData("roi_coordinates", crop)}
             >
-                <img className="w-full" alt="preview" src={image.preview} />
+                <img className="w-full" alt="preview" src={imageUrl} />
             </ReactCrop>
 
             <Button
