@@ -19,20 +19,20 @@ function ImageMockup(addImage: boolean, prefix: string = "bands"): Image[] {
 }
 
 function FormMockup(): BasicForm {
-    const now = new Date();
-
     return {
-        clorofila: 1,
-        startDate: new CalendarDate(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate()
-        ),
-        captureDate: new CalendarDate(
-            now.getFullYear(),
-            now.getMonth() + 1,
-            now.getDate()
-        ),
+        session_id: null,
+        roi_coordinates: {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 0,
+        },
+        data_iot: {
+            soil_humedity: 2,
+            soil_temperature: 29,
+            pH: 6.6,
+            avg_spad: 8.33,
+        },
     };
 }
 

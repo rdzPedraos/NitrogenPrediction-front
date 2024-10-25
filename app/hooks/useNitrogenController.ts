@@ -26,19 +26,14 @@ type NitrogenControllerProps = {
 };
 
 function useNitrogenController(): NitrogenControllerProps {
-    const { allFilled, register } = useForm(FormMockup());
-    const [filterImages, setFilterImages] = useState<FilterImage[]>([]);
-    const [prediction, setPrediction] = useState<NitrogenPredict>();
+    const { register, setData, data } = useForm(FormMockup());
     const multispectral = useBandImages("bands");
     const refractance = useBandImages("panels");
     const modalDisclosure = useDisclosure();
 
     const alreadyUploadImages = useMemo(
-        () =>
-            multispectral.uploadedImages &&
-            refractance.uploadedImages &&
-            allFilled,
-        [multispectral, refractance, allFilled]
+        () => multispectral.uploadedImages && refractance.uploadedImages,
+        [multispectral, refractance]
     );
 
     const process = async () => {
