@@ -1,4 +1,3 @@
-import { CalendarDate } from "@internationalized/date";
 import { BasicForm, FilterImage, Image } from "@/types/models";
 
 const BandTypes = [
@@ -11,10 +10,13 @@ const BandTypes = [
 
 function ImageMockup(addImage: boolean, prefix: string = "bands"): Image[] {
     return Array.from({ length: BandTypes.length }, (_, i) => {
-        const id = Math.random().toString(36).substring(7);
-        const src = addImage ? `/mockup/${prefix}/${i + 1}.tif` : "";
+        if (!addImage) return null;
 
-        return { id, src };
+        const file = new File([""], `${prefix}-${i}.png`, {
+            type: "image/png",
+        });
+
+        return file;
     });
 }
 
