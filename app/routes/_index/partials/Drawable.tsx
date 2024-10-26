@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Sidebar } from "react-pro-sidebar";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Slider } from "@nextui-org/react";
 import { ArrowLeftIcon, SettingsIcon, XIcon } from "lucide-react";
 
 import { DataIOT } from "@/types/models";
@@ -81,16 +81,19 @@ function GlobalConfig() {
     const { t } = useTranslation("menu");
     const { data, setData, clearSession } = useFormContext();
 
+    const setIOTData = (key: keyof DataIOT, value: any) => {
+        setData("data_iot", {
+            ...data.data_iot,
+            [key]: value,
+        });
+    };
+
     const registerIOT = (key: keyof DataIOT) => {
         return {
             type: "number",
             value: data.data_iot[key].toString(),
-            onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                setData("data_iot", {
-                    ...data.data_iot,
-                    [key]: e.target.value,
-                });
-            },
+            onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                setIOTData(key, e.target.value),
         };
     };
 
@@ -119,6 +122,16 @@ function GlobalConfig() {
                 label={t("nitrogen_hoped")}
             />
 
+            <Slider
+                label={t("soil_pH")}
+                step={0.1}
+                maxValue={7}
+                minValue={0}
+                value={data.data_iot.pH}
+                onChange={(value) => setIOTData("pH", value)}
+                className="px-2"
+            />
+
             <Input
                 {...registerIOT("soil_humedity")}
                 color="primary"
@@ -129,11 +142,7 @@ function GlobalConfig() {
                 color="primary"
                 label={t("soil_temperature")}
             />
-            <Input
-                {...registerIOT("pH")}
-                color="primary"
-                label={t("soil_pH")}
-            />
+
             <Input
                 {...registerIOT("avg_spad")}
                 color="primary"
