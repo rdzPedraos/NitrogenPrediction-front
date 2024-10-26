@@ -35,9 +35,9 @@ export default function Drawable() {
                 collapsedWidth="0px"
                 className="overflow-hidden shadow"
             >
-                <div className="overflow-y-auto h-full p-4 flex flex-col gap-4">
+                <div className="overflow-y-auto p-4 flex flex-col gap-4">
                     <div className="flex justify-between items-center">
-                        <h2 className="text-xl font-bold">Configuración</h2>
+                        <h2 className="text-xl font-bold">{t("title")}</h2>
                         <Button
                             onClick={() => setIsOpen(false)}
                             isIconOnly
