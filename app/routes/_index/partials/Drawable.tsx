@@ -10,6 +10,10 @@ export default function Drawable() {
     const { t, i18n } = useTranslation("menu");
     const { isOpen, setIsOpen, step, setStep } = useFormContext();
 
+    const changeLanguage = (lang: string) => {
+        return () => i18n.changeLanguage(lang);
+    };
+
     return (
         <>
             <Button
@@ -42,6 +46,18 @@ export default function Drawable() {
                         >
                             <XIcon />
                         </Button>
+                    </div>
+
+                    <div className="flex gap-2">
+                        {["es", "en"].map((lang) => (
+                            <button key={lang} onClick={changeLanguage(lang)}>
+                                <img
+                                    className="cursor-pointer w-8 h-5"
+                                    src={`/flags/${lang}.png`}
+                                    alt={lang}
+                                />
+                            </button>
+                        ))}
                     </div>
 
                     {step !== "result" ? (
