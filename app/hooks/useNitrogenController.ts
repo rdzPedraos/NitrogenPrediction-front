@@ -9,7 +9,13 @@ import useForm from "@/hooks/useForm";
 import useBandImages, { BandTypes } from "@/hooks/useBandImages";
 
 import { saveCache } from "@/helpers/session";
-import { defaultForm, defaultProcessingStatus } from "@/helpers/mockups";
+
+import {
+    defaultForm,
+    defaultPrediction,
+    defaultProcessingStatus,
+} from "@/helpers/mockups";
+
 import {
     predictRequest,
     processRequest,
@@ -17,7 +23,7 @@ import {
     uploadRequest,
 } from "@/helpers/requests";
 
-type NitrogenControllerProps = ReturnType<typeof useForm<BasicForm>> & {
+type NitrogenControllerProps = {
     BandTypes: typeof BandTypes;
     alreadyUploadImages: boolean;
     images: {
@@ -33,7 +39,7 @@ type NitrogenControllerProps = ReturnType<typeof useForm<BasicForm>> & {
 
     predict: () => Promise<void>;
     prediction: NitrogenPrediction;
-};
+} & ReturnType<typeof useForm<BasicForm>>;
 
 function useNitrogenController(): NitrogenControllerProps {
     const { register, setData, data } = useForm(defaultForm());
@@ -41,7 +47,7 @@ function useNitrogenController(): NitrogenControllerProps {
     const refractance = useBandImages();
 
     const [status, setStatus] = useState(defaultProcessingStatus());
-    const [prediction, setPrediction] = useState({} as NitrogenPrediction);
+    const [prediction, setPrediction] = useState(defaultPrediction());
 
     const alreadyUploadImages = useMemo(
         () => multispectral.uploadedImages && refractance.uploadedImages,

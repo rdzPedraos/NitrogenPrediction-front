@@ -19,9 +19,7 @@ type BasicForm = {
 type ProcessingStatus = { key: string; label: string; status: boolean }[];
 type ImageType = "histograms" | "images";
 
-type NitrogenPrediction = {
-    nitrogen: number;
-};
+type NitrogenPrediction = number;
 
 export type {
     Image,

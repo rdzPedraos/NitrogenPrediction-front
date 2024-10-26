@@ -1,4 +1,9 @@
-import { BasicForm, ProcessingStatus, Image } from "@/types/models";
+import {
+    BasicForm,
+    ProcessingStatus,
+    Image,
+    NitrogenPrediction,
+} from "@/types/models";
 
 const BandTypes = [
     "Blue band",
@@ -36,4 +41,14 @@ function defaultProcessingStatus(): ProcessingStatus {
     return [];
 }
 
-export { BandTypes, defaultImages, defaultForm, defaultProcessingStatus };
+function defaultPrediction(): NitrogenPrediction {
+    return 0;
+}
+
+export {
+    BandTypes,
+    defaultImages,
+    defaultForm,
+    defaultProcessingStatus,
+    defaultPrediction,
+};

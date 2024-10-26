@@ -1,4 +1,5 @@
 import {
+    BasicForm,
     ImageType,
     NitrogenPrediction,
     ProcessingStatus,
@@ -32,19 +33,28 @@ async function statusRequest(session_id: string): Promise<ProcessingStatus> {
     return data;
 }
 
-function predictRequest(
+async function predictRequest(
     session_id: string,
-    data: any
+    form: any
 ): Promise<NitrogenPrediction> {
-    return api.post(`/${session_id}/predict`, data);
+    const { data } = await api.post(`/${session_id}/predict`, form);
+    return parseFloat(data);
 }
 
 function getUrlImage(
     session_id: string,
     type: ImageType,
-    band: string
+    band: string,
+    crop?: BasicForm["roi_coordinates"]
 ): string {
-    return `${api.getUri()}/${session_id}/storage/${type}/${band}`;
+    const url = `${api.getUri()}/${session_id}/storage/${type}/${band}`;
+
+    if (crop) {
+        const { x, y, width, height } = crop;
+        return `${url}?crop&x=${x}&y=${y}&width=${width}&height=${height}`;
+    }
+
+    return url;
 }
 
 export {

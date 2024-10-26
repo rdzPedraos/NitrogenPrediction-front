@@ -4,6 +4,7 @@ import ReactSpeedometer from "react-d3-speedometer";
 import { useFormContext } from "@/contexts/FormContext";
 import Thermometer from "@/components/Thermometer";
 import { Title } from "@/components";
+import { getUrlImage } from "@/helpers/requests";
 
 export default function Prediction() {
     const { prediction, data } = useFormContext();
@@ -12,7 +13,9 @@ export default function Prediction() {
         <>
             <Title>Predicción de nitrogeno</Title>
 
-            <div className="grid md:grid-cols-2 xl:flex gap-16 justify-center items-center mt-8">
+            <p>Valores del muestreo</p>
+
+            <div className="flex flex-col lg:flex-row gap-16 justify-center items-center">
                 <div className="flex flex-col items-center">
                     <ReactSpeedometer
                         value={data.data_iot.nitrogen_hoped}
@@ -80,6 +83,19 @@ export default function Prediction() {
                     <p className="text-xl font-bold">Temperatura</p>
                 </div>
             </div>
+
+            <p>Imágen seleccionada</p>
+
+            <img
+                className="mt-8 mx-auto min-h-[200px] min-w-[200px] object-contain shadow"
+                alt="cropped"
+                src={getUrlImage(
+                    data.session_id as string,
+                    "images",
+                    "rgb",
+                    data.roi_coordinates
+                )}
+            />
         </>
     );
 }
