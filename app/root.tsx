@@ -8,14 +8,15 @@ import {
     useLoaderData,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
-
-import { NextUIProvider } from "@nextui-org/react";
-import "react-image-crop/dist/ReactCrop.css";
-import "./tailwind.css";
-import { Toaster } from "sonner";
 import i18next from "@/i18next.server";
 import { useTranslation } from "react-i18next";
 import { useChangeLanguage } from "remix-i18next/react";
+import { Toaster } from "sonner";
+
+import { NextUIProvider } from "@nextui-org/react";
+import "react-image-crop/dist/ReactCrop.css";
+import "react-circular-progressbar/dist/styles.css";
+import "./tailwind.css";
 
 export async function loader({ request }: LoaderArgs) {
     const locale = await i18next.getLocale(request);

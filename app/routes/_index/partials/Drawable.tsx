@@ -30,7 +30,7 @@ export default function Drawable() {
                 collapsed={!isOpen}
                 toggled={isOpen}
                 onBackdropClick={() => setIsOpen(false)}
-                breakPoint="md"
+                breakPoint="xl"
                 backgroundColor="#fafafa"
                 collapsedWidth="0px"
                 className="overflow-hidden shadow"

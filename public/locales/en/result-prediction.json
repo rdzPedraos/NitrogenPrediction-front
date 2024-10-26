@@ -5,5 +5,7 @@
     "variable.prediction": "Predicted nitrogen",
     "variable.nitrogen": "Real nitrogen",
     "variable.humidity": "Humidity",
-    "variable.temperature": "Temperature"
+    "variable.temperature": "Temperature (°C)",
+    "variable.ph": "pH",
+    "variable.svg_spad": "Clorophyll average"
 }
