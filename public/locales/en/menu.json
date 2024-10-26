@@ -1,0 +1,11 @@
+{
+    "title": "Configuration",
+    "session_id": "Session ID",
+    "nitrogen_hoped": "Nitrogen hoped",
+    "soil_humidity": "Soil humidity",
+    "soil_temperature": "Soil temperature (°C)",
+    "soil_pH": "Soil pH",
+    "avg_spad": "Chlorophyll average",
+    "actions.clear-session": "Clear session",
+    "actions.back": "Back"
+}

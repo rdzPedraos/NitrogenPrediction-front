@@ -5,33 +5,19 @@ import { useFormContext } from "@/contexts/FormContext";
 import Thermometer from "@/components/Thermometer";
 import { Title } from "@/components";
 import { getUrlImage } from "@/helpers/requests";
+import { useTranslation } from "react-i18next";
 
 export default function Prediction() {
+    const { t } = useTranslation("result-prediction");
     const { prediction, data } = useFormContext();
 
     return (
         <>
-            <Title>Predicción de nitrogeno</Title>
+            <Title>{t("title")}</Title>
 
-            <p>Valores del muestreo</p>
+            <p>{t("description")}</p>
 
             <div className="flex flex-col lg:flex-row gap-16 justify-center items-center">
-                <div className="flex flex-col items-center">
-                    <ReactSpeedometer
-                        value={data.data_iot.nitrogen_hoped}
-                        maxValue={3}
-                        minValue={0}
-                        height={180}
-                        width={290}
-                        needleTransitionDuration={1000}
-                        segments={9}
-                        startColor="green"
-                        endColor="#ec4899"
-                        needleColor="black"
-                    />
-                    <p className="text-xl font-bold">Valor esperado</p>
-                </div>
-
                 <div className="flex flex-col items-center">
                     <ReactSpeedometer
                         value={prediction}
@@ -45,7 +31,27 @@ export default function Prediction() {
                         endColor="#ec4899"
                         needleColor="black"
                     />
-                    <p className="text-xl font-bold">Predicción</p>
+                    <p className="text-xl font-bold">
+                        {t("variable.prediction")}
+                    </p>
+                </div>
+
+                <div className="flex flex-col items-center">
+                    <ReactSpeedometer
+                        value={data.data_iot.nitrogen_hoped}
+                        maxValue={3}
+                        minValue={0}
+                        height={180}
+                        width={290}
+                        needleTransitionDuration={1000}
+                        segments={9}
+                        startColor="green"
+                        endColor="#ec4899"
+                        needleColor="black"
+                    />
+                    <p className="text-xl font-bold">
+                        {t("variable.nitrogen")}
+                    </p>
                 </div>
 
                 <div className="flex flex-col items-center">
@@ -67,7 +73,9 @@ export default function Prediction() {
                             max: 100,
                         }}
                     />
-                    <p className="text-xl font-bold">Humedad</p>
+                    <p className="text-xl font-bold">
+                        {t("variable.humidity")}
+                    </p>
                 </div>
 
                 <div className="flex flex-col items-center">
@@ -80,11 +88,13 @@ export default function Prediction() {
                         currentValue={80}
                         color="red"
                     />
-                    <p className="text-xl font-bold">Temperatura</p>
+                    <p className="text-xl font-bold">
+                        {t("variable.temperature")}
+                    </p>
                 </div>
             </div>
 
-            <p>Imágen seleccionada</p>
+            <p>{t("description.cropped-image")}</p>
 
             <img
                 className="mt-8 mx-auto min-h-[200px] min-w-[200px] object-contain shadow"

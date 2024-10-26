@@ -1,0 +1,15 @@
+{
+    "title": "Cargue de archivos",
+    "description": "Para usar este modelo se requiere cargar una imagen tomada con una cámara multiespectral del terreno a estudiar. Las cámaras multiespectrales te permiten obtener la información en 5 canales, por favor, cargue dicha información y adjunte los paneles de reflactancia correspondientes. Existen variables de entorno como la humedad del suelo, la temperatura, etc... Si desea modificar estos valores, presione en el icóno de tuerca ubicado a la izquierda de la pantalla.",
+    "bands.blue": "Banda azúl",
+    "bands.green": "Banda verde",
+    "bands.red": "Banda roja",
+    "bands.nir": "Banda infrarroja cercana",
+    "bands.red-edge": "Banda roja de borde",
+    "actions.process": "Procesar",
+    "actions.upload.bands": "Subir imágenes",
+    "actions.upload.refractance": "Subir paneles de reflactancia",
+    "process.loading": "Cargando imágenes...",
+    "process.success": "Imágenes cargadas con éxito",
+    "process.error": "Error al cargar las imágenes"
+}

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Button } from "@nextui-org/react";
 import { Reorder } from "framer-motion";
 import { toast } from "sonner";
@@ -8,30 +9,24 @@ import { useFormContext } from "@/contexts/FormContext";
 import { RenderSquare, UploadFileButton, Title } from "@/components";
 
 export default function FormView() {
+    const { t } = useTranslation("load-variables");
     const { images, BandTypes, alreadyUploadImages, processImages } =
         useFormContext();
 
     const onSubmit = () => {
         const promise = processImages();
         toast.promise(promise, {
-            loading: "Cargando imágenes...",
-            success: "Imágenes cargadas correctamente",
-            error: "Error al cargar las imágenes",
+            loading: t("process.loading"),
+            success: t("process.success"),
+            error: t("process.error"),
         });
     };
 
     return (
         <>
-            <Title>Ingreso de variables</Title>
+            <Title>{t("title")}</Title>
 
-            <p className="mb-8">
-                Para usar este modelo se requiere cargar una imagen tomada con
-                una cámara multiespectral del terreno a estudiar. Las cámaras
-                multiespectrales te permiten obtener la información en 5
-                canales, por favor, cargue dicha información y posicionelo
-                correctamente, lo mismo para los paneles de refractancia. Y
-                adjunte la información solicitada a continuación.
-            </p>
+            <p className="mb-8">{t("description")}</p>
 
             <div className="flex flex-wrap justify-end gap-2 mb-6">
                 <UploadFileButton
@@ -41,7 +36,7 @@ export default function FormView() {
                     color="primary"
                     endContent={<Upload width={20} />}
                 >
-                    Subir imágenes
+                    {t("actions.upload.bands")}
                 </UploadFileButton>
 
                 <UploadFileButton
@@ -52,7 +47,7 @@ export default function FormView() {
                     variant="flat"
                     endContent={<Upload width={20} />}
                 >
-                    Subir imágenes panel de refractancia
+                    {t("actions.upload.refractance")}
                 </UploadFileButton>
             </div>
 
@@ -63,7 +58,7 @@ export default function FormView() {
                             key={column}
                             className="uppercase text-center font-bold flex-1"
                         >
-                            {column}
+                            {t(`bands.${column}`)}
                         </p>
                     ))}
                 </div>
@@ -100,7 +95,7 @@ export default function FormView() {
                 isDisabled={!alreadyUploadImages}
                 className="bg-gradient-primary mt-6 w-full"
             >
-                Procesar
+                {t("actions.process")}
             </Button>
         </>
     );

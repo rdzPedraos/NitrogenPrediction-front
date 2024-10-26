@@ -8,8 +8,10 @@ import { ProcessingStatus } from "@/types/models";
 import { useFormContext } from "@/contexts/FormContext";
 import Title from "@/components/Title";
 import CropImage from "./CropImage";
+import { useTranslation } from "react-i18next";
 
 export default function Preview() {
+    const { t } = useTranslation("processed-images");
     const [option, setOption] = useState<ProcessingStatus[number]>();
     const { status, processing, data, predict, setStep } = useFormContext();
 
@@ -26,30 +28,25 @@ export default function Preview() {
     const onPredict = () => {
         const promise = predict();
         toast.promise(promise, {
-            loading: "Prediciendo",
-            success: "Predicción completada",
-            error: "Error al predecir",
+            loading: t("prediction.loading"),
+            success: t("prediction.success"),
+            error: t("prediction.error"),
         });
         promise.then(() => setStep("result"));
     };
 
     return (
         <>
-            <Title>Indices de vegetación</Title>
+            <Title>{t("title")}</Title>
 
-            <p className="mb-8">
-                En esta pantalla podrás visualizar distintos formatos obtenidos
-                de la cámara multiespectral. Una vez que encuentre la zona a
-                estudiar, selecciónela con el cursor encima de la imagen y dele
-                en el botón 'procesar'.
-            </p>
+            <p className="mb-8">{t("description")}</p>
 
             <div className="flex flex-col gap-6 mt-4 max-w-xl mx-auto">
                 <div>
                     {processing && (
                         <p className="text-sm text-secondary flex items-center gap-2 animate-pulse">
                             <RefreshCcw className="animate-spin" size={15} />
-                            Procesando imágenes
+                            {t("actions.processing")}
                         </p>
                     )}
 
@@ -69,7 +66,8 @@ export default function Preview() {
                                     value={key}
                                     textValue={label}
                                 >
-                                    {key.toUpperCase()}: {label}
+                                    {key.toUpperCase()}:{" "}
+                                    {t(`filter.${key.toLowerCase()}`)}
                                 </SelectItem>
                             );
                         })}
@@ -85,7 +83,7 @@ export default function Preview() {
                             color="secondary"
                             endContent={<SparklesIcon width={20} />}
                         >
-                            Predecir
+                            {t("actions.predict")}
                         </Button>
                     </>
                 )}

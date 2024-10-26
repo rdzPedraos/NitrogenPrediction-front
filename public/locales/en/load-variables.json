@@ -1,0 +1,15 @@
+{
+    "title": "Load files",
+    "description": "To use this model, you need to upload an image taken with a multispectral camera of the terrain to be studied. Multispectral cameras allow you to obtain information in 5 channels, please upload this information and attach the corresponding reflectance panels. There are environmental variables such as soil moisture, temperature, etc... If you want to modify these values, press the gear icon located on the left side of the screen.",
+    "bands.blue": "Blue band",
+    "bands.green": "Green band",
+    "bands.red": "Red band",
+    "bands.nir": "Near infrared band",
+    "bands.red-edge": "Red edge band",
+    "actions.process": "Process",
+    "actions.upload.bands": "Upload images",
+    "actions.upload.refractance": "Upload reflectance panels",
+    "process.loading": "Loading images...",
+    "process.success": "Images uploaded successfully",
+    "process.error": "Error uploading images"
+}

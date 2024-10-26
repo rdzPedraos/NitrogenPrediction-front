@@ -1,0 +1,11 @@
+{
+    "title": "Configuración",
+    "session_id": "ID de sesión",
+    "nitrogen_hoped": "Nitrógeno esperado",
+    "soil_humidity": "Humedad del suelo",
+    "soil_temperature": "Temperatura del suelo (°C)",
+    "soil_pH": "pH del suelo",
+    "avg_spad": "Promedio de clorofila",
+    "actions.clear-session": "Limpiar sesión",
+    "actions.back": "Volver"
+}

@@ -1,0 +1,9 @@
+{
+    "title": "Result prediction",
+    "description": "In this screen you can visualize the results obtained from the prediction of nitrogen in the soil. You can contrast the value with other variables such as soil moisture, temperature, etc... If you want to modify these values, press the gear icon located on the left of the screen and click in 'back' button.",
+    "description.cropped-image": "This is the cropped image of the study area.",
+    "variable.prediction": "Predicted nitrogen",
+    "variable.nitrogen": "Real nitrogen",
+    "variable.humidity": "Humidity",
+    "variable.temperature": "Temperature"
+}

@@ -5,13 +5,7 @@ import {
     NitrogenPrediction,
 } from "@/types/models";
 
-const BandTypes = [
-    "Blue band",
-    "Green Band",
-    "Red Band",
-    "NIR Band",
-    "Red edge Band",
-];
+const BandTypes = ["blue", "green", "red", "nir", "red-edge"];
 
 function defaultImages(): Image[] {
     return Array.from({ length: BandTypes.length }, () => null);

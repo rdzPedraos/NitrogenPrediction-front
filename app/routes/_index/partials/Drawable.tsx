@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Sidebar } from "react-pro-sidebar";
 import { Button, Input } from "@nextui-org/react";
 import { ArrowLeftIcon, SettingsIcon, XIcon } from "lucide-react";
@@ -6,6 +7,7 @@ import { DataIOT } from "@/types/models";
 import { useFormContext } from "@/contexts/FormContext";
 
 export default function Drawable() {
+    const { t, i18n } = useTranslation("menu");
     const { isOpen, setIsOpen, step, setStep } = useFormContext();
 
     return (
@@ -50,7 +52,7 @@ export default function Drawable() {
                             onClick={() => setStep("processing")}
                             startContent={<ArrowLeftIcon />}
                         >
-                            Volver atrás
+                            {t("actions.back")}
                         </Button>
                     )}
                 </div>
@@ -60,6 +62,7 @@ export default function Drawable() {
 }
 
 function GlobalConfig() {
+    const { t } = useTranslation("menu");
     const { data, setData, clearSession } = useFormContext();
 
     const registerIOT = (key: keyof DataIOT) => {
@@ -83,42 +86,42 @@ function GlobalConfig() {
                     variant="flat"
                     startContent={<XIcon />}
                 >
-                    Borrar sessión
+                    {t("actions.clear-session")}
                 </Button>
             )}
 
             <Input
                 value={data.session_id?.toString()}
                 color="primary"
-                label="ID de sesión"
+                label={t("session_id")}
                 isDisabled
             />
 
             <Input
                 {...registerIOT("nitrogen_hoped")}
                 color="primary"
-                label="Nitrogeno real"
+                label={t("nitrogen_hoped")}
             />
 
             <Input
                 {...registerIOT("soil_humedity")}
                 color="primary"
-                label="Humedad del suelo"
+                label={t("soil_humidity")}
             />
             <Input
                 {...registerIOT("soil_temperature")}
                 color="primary"
-                label="Temperatura del suelo (°C)"
+                label={t("soil_temperature")}
             />
             <Input
                 {...registerIOT("pH")}
                 color="primary"
-                label="pH del suelo"
+                label={t("soil_pH")}
             />
             <Input
                 {...registerIOT("avg_spad")}
                 color="primary"
-                label="Promedio de clorofila"
+                label={t("avg_spad")}
             />
         </>
     );

@@ -1,0 +1,9 @@
+{
+    "title": "Predicción de resultados",
+    "description": "En esta pantalla podrás visualizar los resultados obtenidos de la predicción de nitrógeno en el suelo. Puede contrastar el valor con otras variables como la humedad del suelo, la temperatura, etc... Si desea modificar estos valores, presione en el icóno de tuerca ubicado a la izquierda de la pantalla y haga clic en 'volver'.",
+    "description.cropped-image": "Esta es la imagen recortada de la zona de estudio.",
+    "variable.prediction": "Nitrogeno predicho",
+    "variable.nitrogen": "Nitrógeno real",
+    "variable.humidity": "Humedad",
+    "variable.temperature": "Temperatura"
+}
