@@ -11,9 +11,9 @@ body {
 }
 
 .bg-gradient-primary {
-    @apply font-bold text-white bg-gradient-to-tr from-pink-500 to-yellow-500;
+    @apply font-bold text-white bg-gradient-to-tr from-secondary to-primary;
 }
 
 .text-gradient-primary {
-    @apply font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-yellow-500;
+    @apply font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary to-primary;
 }

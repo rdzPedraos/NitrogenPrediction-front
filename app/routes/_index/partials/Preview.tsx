@@ -44,7 +44,7 @@ export default function Preview() {
             <div className="flex flex-col gap-6 mt-4 max-w-2xl mx-auto">
                 <div>
                     {processing && (
-                        <p className="text-sm text-secondary flex items-center gap-2 animate-pulse">
+                        <p className="text-sm text-primary flex items-center gap-2 animate-pulse">
                             <RefreshCcw className="animate-spin" size={15} />
                             {t("actions.processing")}
                         </p>
@@ -80,7 +80,7 @@ export default function Preview() {
                         <Button
                             isDisabled={!activeButton}
                             onClick={onPredict}
-                            color="secondary"
+                            className="bg-gradient-primary"
                             endContent={<SparklesIcon width={20} />}
                         >
                             {t("actions.predict")}

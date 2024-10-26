@@ -49,15 +49,24 @@ export default function Drawable() {
                     </div>
 
                     <div className="flex gap-2">
-                        {["es", "en"].map((lang) => (
-                            <button key={lang} onClick={changeLanguage(lang)}>
-                                <img
-                                    className="cursor-pointer w-8 h-5"
-                                    src={`/flags/${lang}.png`}
-                                    alt={lang}
-                                />
-                            </button>
-                        ))}
+                        {["es", "en"].map((lang) => {
+                            const active = i18n.language === lang;
+                            return (
+                                <button
+                                    key={lang}
+                                    onClick={changeLanguage(lang)}
+                                    className={
+                                        active ? "shadow shadow-secondary" : ""
+                                    }
+                                >
+                                    <img
+                                        className="cursor-pointer w-8 h-5"
+                                        src={`/flags/${lang}.png`}
+                                        alt={lang}
+                                    />
+                                </button>
+                            );
+                        })}
                     </div>
 
                     {step !== "result" ? (
