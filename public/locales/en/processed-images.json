@@ -22,5 +22,7 @@
     "actions.processing": "Images processing",
     "prediction.loading": "Predicting...",
     "prediction.success": "Successful prediction",
-    "prediction.error": "Error predicting"
+    "prediction.error": "Error predicting",
+    "tabs.images": "Images",
+    "tabs.histogram": "Histogram"
 }

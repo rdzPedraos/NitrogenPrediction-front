@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import { RefreshCcw, SparklesIcon } from "lucide-react";
@@ -7,8 +8,7 @@ import { ProcessingStatus } from "@/types/models";
 
 import { useFormContext } from "@/contexts/FormContext";
 import Title from "@/components/Title";
-import CropImage from "./CropImage";
-import { useTranslation } from "react-i18next";
+import ImageInfo from "./ImageInfo";
 
 export default function Preview() {
     const { t } = useTranslation("processed-images");
@@ -41,7 +41,7 @@ export default function Preview() {
 
             <p className="mb-8">{t("description")}</p>
 
-            <div className="flex flex-col gap-6 mt-4 max-w-xl mx-auto">
+            <div className="flex flex-col gap-6 mt-4 max-w-2xl mx-auto">
                 <div>
                     {processing && (
                         <p className="text-sm text-secondary flex items-center gap-2 animate-pulse">
@@ -76,7 +76,7 @@ export default function Preview() {
 
                 {option && (
                     <>
-                        <CropImage option={option} />
+                        <ImageInfo option={option} />
                         <Button
                             isDisabled={!activeButton}
                             onClick={onPredict}
