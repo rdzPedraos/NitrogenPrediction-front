@@ -30,7 +30,7 @@ export default function Preview() {
             success: "Predicción completada",
             error: "Error al predecir",
         });
-        promise.then(() => setStep("processing"));
+        promise.then(() => setStep("result"));
     };
 
     return (
