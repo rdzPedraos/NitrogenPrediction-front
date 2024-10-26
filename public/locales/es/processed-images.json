@@ -20,7 +20,7 @@
     "filter.mcari": "Índice de reflectancia de la clorofila modificado",
     "actions.predict": "Predecir",
     "actions.processing": "Procesando imágenes",
-    "process.loading": "Prediciendo...",
-    "process.success": "Predicción exitosa",
-    "process.error": "Error al predecir"
+    "prediction.loading": "Prediciendo...",
+    "prediction.success": "Predicción exitosa",
+    "prediction.error": "Error al predecir"
 }
