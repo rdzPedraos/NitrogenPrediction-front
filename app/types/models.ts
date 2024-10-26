@@ -3,6 +3,7 @@ import { Crop } from "react-image-crop";
 type Image = File | null;
 
 type DataIOT = {
+    nitrogen_hoped: number;
     soil_humedity: number;
     soil_temperature: number;
     pH: number;

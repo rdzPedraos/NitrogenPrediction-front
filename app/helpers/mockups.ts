@@ -23,6 +23,7 @@ function defaultForm(): BasicForm {
             unit: "px",
         },
         data_iot: {
+            nitrogen_hoped: 1.73,
             soil_humedity: 2,
             soil_temperature: 29,
             pH: 6.6,

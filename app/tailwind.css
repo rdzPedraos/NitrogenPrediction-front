@@ -5,6 +5,9 @@
 html,
 body {
     @apply bg-white dark:bg-gray-950;
+
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db #f3f4f6;
 }
 
 .bg-gradient-primary {
