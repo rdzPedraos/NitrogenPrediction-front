@@ -20,4 +20,8 @@ export default defineConfig({
             "@": path.resolve(__dirname, "app"),
         },
     },
+
+    ssr: {
+        noExternal: ["react-d3-speedometer"], // Excluir librería de SSR
+    },
 });

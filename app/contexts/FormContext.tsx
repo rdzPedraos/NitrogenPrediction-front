@@ -19,7 +19,7 @@ export default function FormProvider({
 
     const sidebarprops = useSideBar();
     const { setStep, ...sprops } = useStepper();
-    const { data, setData, ...ncprops } = useNitrogenController();
+    const { data, prediction, setData, ...ncprops } = useNitrogenController();
 
     useEffect(() => {
         const session = loadCache("session_id");
@@ -35,11 +35,16 @@ export default function FormProvider({
         saveCache("session_id", data.session_id);
     }, [data.session_id, setStep]);
 
+    useEffect(() => {
+        if (prediction) setStep("result");
+    }, [prediction, setStep]);
+
     return (
         <FormContext.Provider
             value={{
                 setData,
                 data,
+                prediction,
                 setStep,
                 ...sprops,
                 ...ncprops,
