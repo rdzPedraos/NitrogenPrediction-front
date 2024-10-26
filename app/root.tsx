@@ -55,7 +55,7 @@ export default function App() {
             <body>
                 <NextUIProvider locale="es-ES">
                     <Outlet />
-                    <Toaster richColors position="top-center" />
+                    <Toaster richColors />
                 </NextUIProvider>
 
                 <ScrollRestoration />

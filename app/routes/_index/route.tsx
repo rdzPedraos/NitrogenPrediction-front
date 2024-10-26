@@ -21,7 +21,7 @@ export default function Index() {
 
                 <Drawable />
 
-                <div className="overflow-y-auto">
+                <div className="overflow-y-scroll">
                     <div className="px-6 py-4 xl:py-16 max-w-6xl mx-auto">
                         <RenderComponent />
                     </div>
