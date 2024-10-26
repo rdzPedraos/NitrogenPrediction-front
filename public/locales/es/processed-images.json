@@ -20,9 +20,9 @@
     "filter.mcari": "Índice de reflectancia de la clorofila modificado",
     "actions.predict": "Predecir",
     "actions.processing": "Procesando imágenes",
+    "actions.show.histogram": "Histograma",
+    "actions.show.image": "Imágen",
     "prediction.loading": "Prediciendo...",
     "prediction.success": "Predicción exitosa",
-    "prediction.error": "Error al predecir",
-    "tabs.image": "Imágen",
-    "tabs.histogram": "Histograma"
+    "prediction.error": "Error al predecir"
 }

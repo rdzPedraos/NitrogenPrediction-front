@@ -1,8 +1,10 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AnimatePresence, motion } from "framer-motion";
+import { toast } from "sonner";
+import { Button } from "@nextui-org/react";
 import { ReactCrop } from "react-image-crop";
-import { ChartNoAxesCombinedIcon, ImageIcon } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChartNoAxesCombinedIcon, ImageIcon, SparklesIcon } from "lucide-react";
 
 import { ProcessingStatus } from "@/types/models";
 
@@ -10,13 +12,22 @@ import { getUrlImage } from "@/helpers/requests";
 import { useFormContext } from "@/contexts/FormContext";
 
 type Props = {
-    option: ProcessingStatus[number];
+    option: ProcessingStatus[number] | null;
+};
+
+const tabs = {
+    image: ImageIcon,
+    histogram: ChartNoAxesCombinedIcon,
 };
 
 export default function ImageInfo({ option }: Props) {
     const { t } = useTranslation("processed-images");
     const [section, setSection] = useState<keyof typeof tabs>("image");
-    const { data, setData } = useFormContext();
+    const { data, setData, predict, setStep, processing } = useFormContext();
+
+    if (!option) {
+        return null;
+    }
 
     const histogramUrl = getUrlImage(
         data.session_id as string,
@@ -30,26 +41,28 @@ export default function ImageInfo({ option }: Props) {
         option.key
     );
 
-    const tabs = useMemo(
-        () => ({
-            image: {
-                label: t("tabs.image"),
-                Icon: ImageIcon,
-            },
-            histogram: {
-                label: t("tabs.histogram"),
-                Icon: ChartNoAxesCombinedIcon,
-            },
-        }),
-        [t]
-    );
+    const activeButton =
+        !processing &&
+        data.roi_coordinates.width &&
+        data.roi_coordinates.height;
+
+    const onPredict = () => {
+        const promise = predict();
+        toast.promise(promise, {
+            loading: t("prediction.loading"),
+            success: t("prediction.success"),
+            error: t("prediction.error"),
+        });
+        promise.then(() => setStep("result"));
+    };
 
     return (
         <>
             <nav>
                 <ul className="flex border-b-1">
                     {Object.keys(tabs).map((key) => {
-                        const item = tabs[key as keyof typeof tabs];
+                        const Icon = tabs[key as keyof typeof tabs];
+                        const label = t(`actions.show.${key}`);
                         const active = section === key;
 
                         return (
@@ -64,8 +77,8 @@ export default function ImageInfo({ option }: Props) {
                                             : "hover:bg-gray-50"
                                     }`}
                                 >
-                                    <item.Icon className="text-primary" />
-                                    {item.label}
+                                    <Icon className="text-primary" />
+                                    {label}
                                 </button>
 
                                 {active && (
@@ -115,6 +128,17 @@ export default function ImageInfo({ option }: Props) {
                     </motion.div>
                 </AnimatePresence>
             </div>
+
+            {section === "image" && (
+                <Button
+                    isDisabled={!activeButton}
+                    onClick={onPredict}
+                    className="bg-gradient-primary"
+                    endContent={<SparklesIcon width={20} />}
+                >
+                    {t("actions.predict")}
+                </Button>
+            )}
         </>
     );
 }

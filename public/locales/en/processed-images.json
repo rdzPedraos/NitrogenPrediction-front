@@ -20,9 +20,9 @@
     "filter.mcari": "Modified Chlorophyll Absorption Reflectance Index",
     "actions.predict": "Predict",
     "actions.processing": "Images processing",
+    "actions.show.histogram": "Histogram",
+    "actions.show.image": "Image",
     "prediction.loading": "Predicting...",
     "prediction.success": "Successful prediction",
-    "prediction.error": "Error predicting",
-    "tabs.images": "Image",
-    "tabs.histogram": "Histogram"
+    "prediction.error": "Error predicting"
 }

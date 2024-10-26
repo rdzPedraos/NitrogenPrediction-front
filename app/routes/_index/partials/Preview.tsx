@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
-import { Button, Select, SelectItem } from "@nextui-org/react";
-import { RefreshCcw, SparklesIcon } from "lucide-react";
+import { Select, SelectItem } from "@nextui-org/react";
+import { RefreshCcw } from "lucide-react";
 
 import { ProcessingStatus } from "@/types/models";
 
@@ -12,27 +11,12 @@ import ImageInfo from "./ImageInfo";
 
 export default function Preview() {
     const { t } = useTranslation("processed-images");
-    const [option, setOption] = useState<ProcessingStatus[number]>();
-    const { status, processing, data, predict, setStep } = useFormContext();
+    const [option, setOption] = useState<ProcessingStatus[number] | null>(null);
+    const { status, processing } = useFormContext();
 
     const onSelectFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const filter = status.find((s) => s.key === e.target.value);
+        const filter = status.find((s) => s.key === e.target.value) ?? null;
         setOption(filter);
-    };
-
-    const activeButton =
-        !processing &&
-        data.roi_coordinates.width &&
-        data.roi_coordinates.height;
-
-    const onPredict = () => {
-        const promise = predict();
-        toast.promise(promise, {
-            loading: t("prediction.loading"),
-            success: t("prediction.success"),
-            error: t("prediction.error"),
-        });
-        promise.then(() => setStep("result"));
     };
 
     return (
@@ -74,19 +58,7 @@ export default function Preview() {
                     </Select>
                 </div>
 
-                {option && (
-                    <>
-                        <ImageInfo option={option} />
-                        <Button
-                            isDisabled={!activeButton}
-                            onClick={onPredict}
-                            className="bg-gradient-primary"
-                            endContent={<SparklesIcon width={20} />}
-                        >
-                            {t("actions.predict")}
-                        </Button>
-                    </>
-                )}
+                <ImageInfo option={option} />
             </div>
         </>
     );
