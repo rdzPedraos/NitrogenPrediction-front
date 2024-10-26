@@ -46,7 +46,7 @@ export default function FormProvider({
                 ...sidebarprops,
             }}
         >
-            {loading ? <div>Cargando...</div> : children}
+            {!loading && children}
         </FormContext.Provider>
     );
 }
