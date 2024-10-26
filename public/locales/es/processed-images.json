@@ -23,6 +23,6 @@
     "prediction.loading": "Prediciendo...",
     "prediction.success": "Predicción exitosa",
     "prediction.error": "Error al predecir",
-    "tabs.image": "Imágenes",
+    "tabs.image": "Imágen",
     "tabs.histogram": "Histograma"
 }
