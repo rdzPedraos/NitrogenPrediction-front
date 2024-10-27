@@ -5,6 +5,7 @@ import { ArrowLeftIcon, SettingsIcon, XIcon } from "lucide-react";
 
 import { DataIOT } from "@/types/models";
 import { useFormContext } from "@/contexts/FormContext";
+import Credits from "@/components/Credits";
 
 export default function Drawable() {
     const { t, i18n } = useTranslation("menu");
@@ -80,6 +81,8 @@ export default function Drawable() {
                             {t("actions.back")}
                         </Button>
                     )}
+
+                    <Credits />
                 </div>
             </Sidebar>
         </>
