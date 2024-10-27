@@ -19,7 +19,7 @@ function defaultForm(): BasicForm {
             y: 0,
             width: 0,
             height: 0,
-            unit: "px",
+            unit: "%",
         },
         data_iot: {
             nitrogen_hoped: 1.73,

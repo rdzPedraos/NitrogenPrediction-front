@@ -105,8 +105,8 @@ export default function ImageInfo({ option }: Props) {
                             <ReactCrop
                                 className="rounded overflow-hidden shadow w-full"
                                 crop={data.roi_coordinates}
-                                onChange={(crop) =>
-                                    setData("roi_coordinates", crop)
+                                onChange={(crop, percentageCrop) =>
+                                    setData("roi_coordinates", percentageCrop)
                                 }
                             >
                                 <img
