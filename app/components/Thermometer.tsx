@@ -43,7 +43,7 @@ export default function Thermometer({
 
     return (
         <div className="relative h-full">
-            <span className="absolute bottom-0 right-0 text-center text-sm font-bold text-black">
+            <span className="absolute top-2 -right-2 text-center text-sm font-bold text-black">
                 {label ?? currentValue}
             </span>
             <svg

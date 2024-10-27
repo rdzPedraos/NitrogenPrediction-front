@@ -58,22 +58,8 @@ export default function Prediction() {
             <div className="flex flex-wrap gap-16 justify-center items-center my-8">
                 <div className="flex flex-col items-center h-52">
                     <Thermometer
-                        ulidKey="humidity"
-                        minValue={0}
-                        maxValue={10}
-                        currentValue={data.data_iot.soil_humedity}
-                        color="#1f68fc"
-                    />
-
-                    <p className="text-xl font-bold">
-                        {t("variable.humidity")}
-                    </p>
-                </div>
-
-                <div className="flex flex-col items-center h-52">
-                    <Thermometer
                         ulidKey="temperature"
-                        minValue={-55}
+                        minValue={0}
                         maxValue={55}
                         label={`${data.data_iot.soil_temperature}°`}
                         currentValue={data.data_iot.soil_temperature}
@@ -82,6 +68,31 @@ export default function Prediction() {
 
                     <p className="text-xl font-bold">
                         {t("variable.temperature")}
+                    </p>
+                </div>
+
+                <div className="flex flex-col items-center h-52">
+                    <CircularProgressbar
+                        value={data.data_iot.soil_humedity}
+                        maxValue={100}
+                        text={`${data.data_iot.soil_humedity} %`}
+                        styles={{
+                            root: {
+                                width: "auto",
+                                height: "100%",
+                                aspectRatio: "1",
+                            },
+                            path: {
+                                stroke: "#1f68fc",
+                            },
+                            text: {
+                                stroke: "#1f68fc",
+                            },
+                        }}
+                    />
+
+                    <p className="text-xl font-bold">
+                        {t("variable.humidity")}
                     </p>
                 </div>
 
@@ -111,7 +122,7 @@ export default function Prediction() {
                 <div className="flex flex-col items-center h-52">
                     <CircularProgressbar
                         value={data.data_iot.avg_spad}
-                        maxValue={100}
+                        maxValue={50}
                         text={`${data.data_iot.avg_spad}`}
                         styles={{
                             root: {

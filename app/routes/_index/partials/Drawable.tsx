@@ -131,6 +131,12 @@ function GlobalConfig() {
                 label={t("nitrogen_hoped")}
             />
 
+            <Input
+                {...registerIOT("soil_temperature")}
+                color="primary"
+                label={t("soil_temperature")}
+            />
+
             <Slider
                 label={t("soil_pH")}
                 step={0.1}
@@ -139,23 +145,27 @@ function GlobalConfig() {
                 value={data.data_iot.pH}
                 onChange={(value) => setIOTData("pH", value)}
                 className="px-2"
+                color="danger"
             />
 
-            <Input
-                {...registerIOT("soil_humedity")}
-                color="primary"
+            <Slider
                 label={t("soil_humidity")}
-            />
-            <Input
-                {...registerIOT("soil_temperature")}
+                maxValue={100}
+                minValue={0}
+                value={data.data_iot.soil_humedity}
+                onChange={(value) => setIOTData("soil_humedity", value)}
+                className="px-2"
                 color="primary"
-                label={t("soil_temperature")}
             />
 
-            <Input
-                {...registerIOT("avg_spad")}
-                color="primary"
+            <Slider
                 label={t("avg_spad")}
+                maxValue={50}
+                minValue={0}
+                value={data.data_iot.avg_spad}
+                onChange={(value) => setIOTData("avg_spad", value)}
+                className="px-2"
+                color="success"
             />
         </>
     );

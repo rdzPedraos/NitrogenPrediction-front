@@ -4,8 +4,8 @@
     "description.cropped-image": "This is the cropped image of the study area.",
     "variable.prediction": "Predicted nitrogen",
     "variable.nitrogen": "Real nitrogen",
-    "variable.humidity": "Humidity",
+    "variable.humidity": "Humidity (%)",
     "variable.temperature": "Temperature (°C)",
     "variable.ph": "pH",
-    "variable.svg_spad": "Clorophyll average"
+    "variable.svg_spad": "Clorophyll average (SPAD)"
 }

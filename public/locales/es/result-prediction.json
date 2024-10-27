@@ -4,8 +4,8 @@
     "description.cropped-image": "Esta es la imagen recortada de la zona de estudio.",
     "variable.prediction": "Nitrogeno predicho",
     "variable.nitrogen": "Nitrógeno real",
-    "variable.humidity": "Humedad",
+    "variable.humidity": "Humedad (%)",
     "variable.temperature": "Temperatura (°C)",
     "variable.ph": "pH",
-    "variable.svg_spad": "Promedio de clorofila"
+    "variable.svg_spad": "Promedio de clorofila (SPAD)"
 }
