@@ -1,0 +1,5 @@
+{
+    "resume": "Web application for the estimation of foliar nitrogen content in pineapple crops using Machine Learning techniques, multispectral images and Internet of Things (IoT) platforms.",
+    "explanation": "This application allows predicting the nitrogen content in the leaf area of the Gold Pineapple crop using multispectral images combined with agroecological and environmental data acquired through field sensors. Through machine learning algorithms, the platform integrates all this information, providing accurate and close-to-real estimates. This facilitates the farmer's more efficient decision-making in the nutritional management of the crop, optimizing resources and promoting more sustainable agricultural practices.",
+    "cta": "Get started now!"
+}

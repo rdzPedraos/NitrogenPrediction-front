@@ -1,0 +1,5 @@
+{
+    "resume": "Aplicación web para la estimación del contenido de nitrógeno foliar en cultivos de piña mediante técnicas de Machine Learning, imágenes multiespectrales y plataformas de Internet de las Cosas (IoT).",
+    "explanation": "Esta aplicación permite predecir el contenido de nitrógeno en el área foliar del cultivo de Piña Gold utilizando imágenes multiespectrales combinadas con datos agroecológicos y ambientales adquiridos mediante sensores en campo. A través de algoritmos de aprendizaje automático, la plataforma integra toda esta información, proporcionando estimaciones precisas y cercanas al valor real. Esto facilita al agricultor una toma de decisiones más eficiente en la gestión nutricional del cultivo, optimizando recursos y promoviendo prácticas agrícolas más sostenibles.",
+    "cta": "¡Comienza ahora!"
+}

@@ -5,15 +5,11 @@ import { ArrowLeftIcon, SettingsIcon, XIcon } from "lucide-react";
 
 import { DataIOT } from "@/types/models";
 import { useFormContext } from "@/contexts/FormContext";
-import Credits from "@/components/Credits";
+import ChangeLanguage from "@/components/ChangeLanguage";
 
 export default function Drawable() {
-    const { t, i18n } = useTranslation("menu");
+    const { t } = useTranslation("menu");
     const { isOpen, setIsOpen, step, setStep } = useFormContext();
-
-    const changeLanguage = (lang: string) => {
-        return () => i18n.changeLanguage(lang);
-    };
 
     return (
         <>
@@ -49,26 +45,7 @@ export default function Drawable() {
                         </Button>
                     </div>
 
-                    <div className="flex gap-2">
-                        {["es", "en"].map((lang) => {
-                            const active = i18n.language === lang;
-                            return (
-                                <button
-                                    key={lang}
-                                    onClick={changeLanguage(lang)}
-                                    className={
-                                        active ? "shadow shadow-secondary" : ""
-                                    }
-                                >
-                                    <img
-                                        className="cursor-pointer w-8 h-5"
-                                        src={`/flags/${lang}.png`}
-                                        alt={lang}
-                                    />
-                                </button>
-                            );
-                        })}
-                    </div>
+                    <ChangeLanguage />
 
                     {step !== "result" ? (
                         <GlobalConfig />
@@ -81,8 +58,6 @@ export default function Drawable() {
                             {t("actions.back")}
                         </Button>
                     )}
-
-                    <Credits />
                 </div>
             </Sidebar>
         </>
