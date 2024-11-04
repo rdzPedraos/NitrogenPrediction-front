@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 export default function ChangeLanguage() {
-    const { i18n } = useTranslation("menu");
+    const { i18n } = useTranslation();
 
     const changeLanguage = (lang: string) => {
         return () => i18n.changeLanguage(lang);
