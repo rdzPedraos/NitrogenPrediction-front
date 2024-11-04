@@ -3,6 +3,7 @@ import {
     BasicForm,
     NitrogenPrediction,
     ProcessingStatus,
+    RoiStatistics,
 } from "@/types/models";
 
 import useForm from "@/hooks/useForm";
@@ -17,6 +18,7 @@ import {
 } from "@/helpers/mockups";
 
 import {
+    getStatisticsRequest,
     predictRequest,
     processRequest,
     statusRequest,
@@ -39,6 +41,11 @@ type NitrogenControllerProps = {
 
     predict: () => Promise<void>;
     prediction: NitrogenPrediction;
+
+    getStatistics: (
+        roi: BasicForm["roi_coordinates"],
+        band: string
+    ) => Promise<RoiStatistics>;
 } & ReturnType<typeof useForm<BasicForm>>;
 
 function useNitrogenController(): NitrogenControllerProps {
@@ -101,6 +108,22 @@ function useNitrogenController(): NitrogenControllerProps {
         setPrediction(prediction);
     };
 
+    const getStatistics = async (
+        roi: BasicForm["roi_coordinates"],
+        band: string
+    ) => {
+        if (!data.session_id) {
+            throw new Error("No hay una sesión activa");
+        }
+
+        const statistics = await getStatisticsRequest(
+            data.session_id,
+            roi,
+            band
+        );
+        return statistics;
+    };
+
     return {
         BandTypes,
 
@@ -118,6 +141,8 @@ function useNitrogenController(): NitrogenControllerProps {
 
         predict,
         prediction,
+
+        getStatistics,
     };
 }
 

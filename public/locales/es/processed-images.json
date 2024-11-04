@@ -23,6 +23,13 @@
     "actions.processing": "Procesando imágenes",
     "actions.show.histogram": "Histograma",
     "actions.show.image": "Imágen",
+    "actions.show.statistics": "Estádisticos",
+    "error.not-roi-selected": "Seleccione una región de interés",
+    "statistics.avg": "Promedio",
+    "statistics.std": "Desviación estándar",
+    "statistics.min": "Mínimo",
+    "statistics.max": "Máximo",
+    "statistics.var": "Varianza",
     "prediction.loading": "Prediciendo...",
     "prediction.success": "Predicción exitosa",
     "prediction.error": "Error al predecir"

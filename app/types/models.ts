@@ -21,6 +21,14 @@ type ImageType = "histograms" | "images";
 
 type NitrogenPrediction = number;
 
+type RoiStatistics = {
+    avg: number;
+    max: number;
+    min: number;
+    std: number;
+    var: number;
+};
+
 export type {
     Image,
     ImageType,
@@ -28,4 +36,5 @@ export type {
     DataIOT,
     BasicForm,
     NitrogenPrediction,
+    RoiStatistics,
 };

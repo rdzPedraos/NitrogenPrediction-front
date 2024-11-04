@@ -23,6 +23,13 @@
     "actions.processing": "Images processing",
     "actions.show.histogram": "Histogram",
     "actions.show.image": "Image",
+    "actions.show.statistics": "Statistics",
+    "error.not-roi-selected": "Select a region of interest",
+    "statistics.avg": "Average",
+    "statistics.std": "Standard deviation",
+    "statistics.min": "Minimum",
+    "statistics.max": "Maximum",
+    "statistics.var": "Variance",
     "prediction.loading": "Predicting...",
     "prediction.success": "Successful prediction",
     "prediction.error": "Error predicting"

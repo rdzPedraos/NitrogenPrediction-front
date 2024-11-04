@@ -10,6 +10,7 @@ import { ProcessingStatus } from "@/types/models";
 
 import { getUrlImage } from "@/helpers/requests";
 import { useFormContext } from "@/contexts/FormContext";
+import GetStatistics from "./GetStatistics";
 
 type Props = {
     option: ProcessingStatus[number] | null;
@@ -102,19 +103,35 @@ export default function ImageInfo({ option }: Props) {
                         transition={{ duration: 0.2 }}
                     >
                         {section === "image" && (
-                            <ReactCrop
-                                className="rounded overflow-hidden shadow w-full"
-                                crop={data.roi_coordinates}
-                                onChange={(crop, percentageCrop) =>
-                                    setData("roi_coordinates", percentageCrop)
-                                }
-                            >
-                                <img
-                                    className="w-full"
-                                    alt="preview"
-                                    src={imageUrl}
-                                />
-                            </ReactCrop>
+                            <div className="flex flex-col gap-4">
+                                <GetStatistics band={option.key} />
+
+                                <ReactCrop
+                                    className="rounded overflow-hidden shadow w-full"
+                                    crop={data.roi_coordinates}
+                                    onChange={(crop, percentageCrop) =>
+                                        setData(
+                                            "roi_coordinates",
+                                            percentageCrop
+                                        )
+                                    }
+                                >
+                                    <img
+                                        className="w-full"
+                                        alt="preview"
+                                        src={imageUrl}
+                                    />
+                                </ReactCrop>
+
+                                <Button
+                                    disabled={!activeButton}
+                                    onClick={onPredict}
+                                    className="bg-gradient-primary w-full"
+                                    endContent={<SparklesIcon width={20} />}
+                                >
+                                    {t("actions.predict")}
+                                </Button>
+                            </div>
                         )}
 
                         {section === "histogram" && (
@@ -127,17 +144,6 @@ export default function ImageInfo({ option }: Props) {
                     </motion.div>
                 </AnimatePresence>
             </div>
-
-            {section === "image" && (
-                <Button
-                    isDisabled={!activeButton}
-                    onClick={onPredict}
-                    className="bg-gradient-primary"
-                    endContent={<SparklesIcon width={20} />}
-                >
-                    {t("actions.predict")}
-                </Button>
-            )}
         </>
     );
 }
