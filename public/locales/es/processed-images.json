@@ -19,6 +19,7 @@
     "filter.reci": "Índice de clorofila red-edge",
     "filter.mcari": "Índice de reflectancia de la clorofila modificado",
     "actions.predict": "Predecir",
+    "actions.compute-indexes": "Calculando índices",
     "actions.processing": "Procesando imágenes",
     "actions.show.histogram": "Histograma",
     "actions.show.image": "Imágen",

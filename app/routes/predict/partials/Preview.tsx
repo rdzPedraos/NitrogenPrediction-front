@@ -19,6 +19,8 @@ export default function Preview() {
         setOption(filter);
     };
 
+    const everyInProgress = status.every((s) => !s.status);
+
     return (
         <>
             <Title>{t("title")}</Title>
@@ -30,32 +32,35 @@ export default function Preview() {
                     {processing && (
                         <p className="text-sm text-primary flex items-center gap-2 animate-pulse">
                             <RefreshCcw className="animate-spin" size={15} />
-                            {t("actions.processing")}
+                            {everyInProgress
+                                ? t("actions.compute-indexes")
+                                : t("actions.processing")}
                         </p>
                     )}
 
-                    <Select
-                        label="Seleccione el tipo de formato a visualizar"
-                        onChange={onSelectFilter}
-                        isDisabled={status.every((s) => !s.status)}
-                        disabledKeys={status
-                            .filter((s) => !s.status)
-                            .map((s) => s.key)}
-                        disallowEmptySelection
-                    >
-                        {status.map(({ key, label }) => {
-                            return (
-                                <SelectItem
-                                    key={key}
-                                    value={key}
-                                    textValue={label}
-                                >
-                                    {key.toUpperCase()}:{" "}
-                                    {t(`filter.${key.toLowerCase()}`)}
-                                </SelectItem>
-                            );
-                        })}
-                    </Select>
+                    {!everyInProgress && (
+                        <Select
+                            label="Seleccione el tipo de formato a visualizar"
+                            onChange={onSelectFilter}
+                            disabledKeys={status
+                                .filter((s) => !s.status)
+                                .map((s) => s.key)}
+                            disallowEmptySelection
+                        >
+                            {status.map(({ key, label }) => {
+                                return (
+                                    <SelectItem
+                                        key={key}
+                                        value={key}
+                                        textValue={label}
+                                    >
+                                        {key.toUpperCase()}:{" "}
+                                        {t(`filter.${key.toLowerCase()}`)}
+                                    </SelectItem>
+                                );
+                            })}
+                        </Select>
+                    )}
                 </div>
 
                 <ImageInfo option={option} />

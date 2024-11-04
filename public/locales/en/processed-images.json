@@ -19,6 +19,7 @@
     "filter.reci": "Red-Edge Chlorophyll Index",
     "filter.mcari": "Modified Chlorophyll Absorption Reflectance Index",
     "actions.predict": "Predict",
+    "actions.compute-indexes": "Computing indexes",
     "actions.processing": "Images processing",
     "actions.show.histogram": "Histogram",
     "actions.show.image": "Image",
