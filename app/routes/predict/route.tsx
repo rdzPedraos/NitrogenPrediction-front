@@ -1,3 +1,6 @@
+import "react-image-crop/dist/ReactCrop.css";
+import "react-circular-progressbar/dist/styles.css";
+
 import type { MetaFunction } from "@remix-run/node";
 import { Progress } from "@nextui-org/react";
 

@@ -14,8 +14,6 @@ import { useChangeLanguage } from "remix-i18next/react";
 import { Toaster } from "sonner";
 
 import { NextUIProvider } from "@nextui-org/react";
-import "react-image-crop/dist/ReactCrop.css";
-import "react-circular-progressbar/dist/styles.css";
 import "./tailwind.css";
 
 export async function loader({ request }: LoaderArgs) {
