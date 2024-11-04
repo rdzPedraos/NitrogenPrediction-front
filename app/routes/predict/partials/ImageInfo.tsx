@@ -63,7 +63,7 @@ export default function ImageInfo({ option }: Props) {
                 <ul className="flex border-b-1">
                     {Object.keys(tabs).map((key) => {
                         const Icon = tabs[key as keyof typeof tabs];
-                        //const label = t(`actions.show.${key}`);
+                        const label = t(`actions.show.${key}`);
                         const active = section === key;
 
                         return (
@@ -72,13 +72,14 @@ export default function ImageInfo({ option }: Props) {
                                     onClick={() =>
                                         setSection(key as keyof typeof tabs)
                                     }
-                                    className={`w-full flex justify-center p-2 rounded-t ${
+                                    className={`w-full flex gap-2 justify-center p-2 rounded-t ${
                                         active
                                             ? "bg-gray-100"
                                             : "hover:bg-gray-50"
                                     }`}
                                 >
                                     <Icon className="text-primary" />
+                                    <p>{label}</p>
                                 </button>
 
                                 {active && (
