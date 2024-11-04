@@ -3,6 +3,7 @@ import {
     ImageType,
     NitrogenPrediction,
     ProcessingStatus,
+    RoiStatistics,
 } from "@/types/models";
 import api from "./api";
 
@@ -30,6 +31,18 @@ function processRequest(session_id: string): Promise<void> {
 
 async function statusRequest(session_id: string): Promise<ProcessingStatus> {
     const { data } = await api.get(`/${session_id}/status`);
+    return data;
+}
+
+async function getStatisticsRequest(
+    session_id: string,
+    roi: BasicForm["roi_coordinates"],
+    band: string
+): Promise<RoiStatistics> {
+    const { data } = await api.post(`/${session_id}/get-statistics`, {
+        roi,
+        band,
+    });
     return data;
 }
 
@@ -63,4 +76,5 @@ export {
     statusRequest,
     predictRequest,
     getUrlImage,
+    getStatisticsRequest,
 };
