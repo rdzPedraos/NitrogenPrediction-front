@@ -147,6 +147,8 @@ function GlobalConfig() {
                 className="px-2"
                 color="success"
             />
+
+            <img src="/stock/medidores.png" alt="medidores" />
         </>
     );
 }
