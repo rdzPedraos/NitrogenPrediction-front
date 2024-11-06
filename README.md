@@ -1,6 +1,6 @@
 # NitrogenAI Prediction
 
-NitrogenAI Prediction es una app que, usando imágenes multiespectrales (nir, red, blue, green, red edge) y datos IoT como humedad, pH, temperatura del suelo y clorofila, predice el nitrógeno en cultivos de maíz, ayudando a los agricultores a optimizar su manejo y reducir costos sin necesidad de análisis de laboratorio.
+NitrogenAI Prediction es una app que, usando imágenes multiespectrales (nir, red, blue, green, red edge) y datos IoT como humedad, pH, temperatura del suelo y clorofila, predice el nitrógeno en cultivos de piña, ayudando a los agricultores a optimizar su manejo y reducir costos sin necesidad de análisis de laboratorio.
 
 ## Features
 
